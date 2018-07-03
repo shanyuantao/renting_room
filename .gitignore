@@ -1,0 +1,8 @@
+i# maven ignore  
+django_env/  
+*.jar  
+*.war  
+*.zip  
+*.tar  
+*.tar.gz
+*.pyc
