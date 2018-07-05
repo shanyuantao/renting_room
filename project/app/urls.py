@@ -4,5 +4,6 @@ from app import views
 
 
 urlpatterns = [
-    url('^hello/', views.hello)
+    url('^hello/', views.hello),
+    url('^index/'),views.Index),
 ]
