@@ -71,6 +71,7 @@ COOKIES_ENABLED = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'getsource.pipelines.SaveToMongodbPipeline': 300,
+   'getsource.pipelines.SaveToMysql': 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

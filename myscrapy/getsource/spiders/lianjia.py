@@ -22,7 +22,7 @@ class LianjiaSpider(CrawlSpider):
         item = CrawlSpiderItem()
         item['title'] = sel.xpath('//h1/text()').extract_first()
         item['price'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[1]/span[1]/text()').extract_first()
-        item['area'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[2]/p[1]/text()').extract_first()
+        item['area'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[2]/p[1]/text()').re('\d+')[0]
         item['house_type'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[2]/p[2]/text()').extract_first().split(' ')[0]
         item['floor'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[2]/p[3]/text()').extract_first()
         item['house_head'] = sel.xpath('/html/body/div[4]/div[2]/div[2]/div[2]/p[4]/text()').extract_first()
