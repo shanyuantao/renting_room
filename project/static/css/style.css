@@ -974,7 +974,11 @@ body {
   background: #5d5b5f;
 }
 .zscf_banner_wper {
+<<<<<<< HEAD
   background: url("../images/banner01.png") no-repeat scroll center 0 #ffffff;
+=======
+  background: url("../images/123.jpg") no-repeat scroll center 0 #ffffff;
+>>>>>>> cwd
   height: 363px;
 }
 .zscf_banner {
@@ -1242,16 +1246,28 @@ body {
 .block3_proone {
   border-bottom: 1px solid #e2e2e2;
   padding: 35px 20px;
+<<<<<<< HEAD
   _padding: 10px 20px;
 }
 .block3_proone .proone_left {
   width: 46px;
   height: 46px;
+=======
+
+}
+.block3_proone .proone_left {
+  width: 60px;
+  height: 60px;
+>>>>>>> cwd
   padding: 10px 30px 0 0;
   display: inline-block;
 }
 .proone_center {
+<<<<<<< HEAD
   width: 670px;
+=======
+  width: 500px;
+>>>>>>> cwd
 }
 .proone_center_span1 {
   color: #000;
@@ -1471,7 +1487,17 @@ body {
 .zscf_bottom_wper a {
   margin-left: 10px;
 }
+<<<<<<< HEAD
 
+=======
+.login_con_wper {
+  background: url(../images/lg_bg01.png) no-repeat scroll center center #f3f3f3;
+  height: 698px;
+}
+.login_con {
+  padding-top: 50px;
+}
+>>>>>>> cwd
 .lg_section {
   border: 1px solid #eeeeee;
   background-color: #fff;
@@ -1542,7 +1568,17 @@ body {
 .lg_btn:hover {
   background-color: #3bc4ee;
 }
+<<<<<<< HEAD
 
+=======
+.reg_con_wper {
+  height: 910px;
+  background: url(../images/reg_bg01.png) no-repeat scroll center center;
+}
+.reg_con {
+  padding-top: 50px;
+}
+>>>>>>> cwd
 .reg_box {
   background: #fff;
   border: 1px solid #eee;

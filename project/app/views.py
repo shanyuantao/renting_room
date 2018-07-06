@@ -6,4 +6,4 @@ from django.shortcuts import render
 
 def hello(request):
     if request.method == 'GET':
-        return render(request, 'test.html')
+        return render(request, 'base.html')

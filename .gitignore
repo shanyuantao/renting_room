@@ -1,5 +1,5 @@
 i# maven ignore  
-django_env/  
+django_env/ 
 project/.idea/
 .idea/
 myscrapy/.idea/

@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="referrer" content="no-referrer">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/pintuer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/pintuer.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+</head>
+<body>
+<div class="zxcf_nav_wper">
+    <div class="zxcf_nav clearfix px1000">
+        <div class="zxcf_nav_l fl"><img src="{% static 'images/zxcf_logo.png' %}" alt=""></div>
+        <div class="zxcf_nav_r fr">
+            <a href="#"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
+            <span>我的账户</span>
+        </div>
+    </div>
+</div>
+<div class="zxcf_menu_wper">
+    <div class="zxcf_menu px1000">
+        <a href="/cwd/index/" class="zm_cura">首页</a>
+        <a href="#">租房</a>
+        <a href="/cwd/myself/">个人中心</a>
+        <a href="#" style="margin-right:0;">关于我们</a>
+    </div>
+</div>
+<div class="leftnav">
+    <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
+    <h2><span class="icon-user"></span>基本设置</h2>
+    <ul style="display:block">
+        <li><a href="/cwd/myself/" target="right"><span class="icon-caret-right"></span>个人信息</a></li>
+        <li><a href="/cwd/change_pas/" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+        <li><a href="/cwd/like/" target="right"><span class="icon-caret-right"></span>我的关注</a></li>
+        <li><a href="/cwd/ture/" target="right"><span class="icon-caret-right"></span>实名认证</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".leftnav h2").click(function () {
+            $(this).next().slideToggle(200);
+            $(this).toggleClass("on");
+        })
+        $(".leftnav ul li a").click(function () {
+            $("#a_leader_txt").text($(this).text());
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        })
+    });
+</script>
+<div class="admin">
+    <div class="panel admin-panel">
+        {% if user.nick_name %}
+            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.nick_name }}
+            </strong><img src="{% static 'images/block4_adver.png' %}" style="width: 100px;height: 100px">
+            </div>
+        {% else %}
+            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.account }}</strong>
+                <img src="{% static 'images/block4_adver.png' %}" style="width: 100px;height: 100px"></div>
+        {% endif %}
+        <div class="body-content">
+            <form method="post" class="form-x" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="label">
+                        <label>设置昵称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="nick_name" value=""/>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>设置头像：</label>
+                    </div>
+                    <div class="field">
+                        {% if user.avatar %}
+                            <input type="text" id="url1" class="input tips" style="width:25%; float:left;"
+                                   value="" data-toggle="hover" data-place="right"
+                                   data-image="/media/{{ user.avatar }}"/>
+                        {% else %}
+                            <input type="text" id="url1" class="input tips" style="width:25%; float:left;"
+                                   value="" data-toggle="hover" data-place="right"
+                                   data-image=""/>
+                        {% endif %}
+                        <input name="avatar" type="file" class="button bg-blue margin-left" id="image1" value="+ 浏览上传"
+                               style="float:left;">
+                        <div class="tipss">图片尺寸：500*200</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label></label>
+                    </div>
+                    <div class="field">
+                        <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
