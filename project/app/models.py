@@ -49,6 +49,7 @@ class House(models.Model):
     address = models.CharField(max_length=512, blank=True, null=True)
     acreage = models.IntegerField(blank=True, null=True)
     index_img_url = models.CharField(max_length=1024, blank=True, null=True)
+    house_status = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = False
