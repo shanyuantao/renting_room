@@ -1,0 +1,73 @@
+{% extends 'base_mine.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+        <!-- end  -->
+        <div class="zscf_banner_wper">
+            <div class="zscf_banner px1000">
+                <div class="zscf_box">
+                    <strong>中兴租房</strong>
+                    <p>累计成交：<strong>56789次</strong></p>
+                    <p>运营时间：<strong>123天</strong></p>
+                    <a href="/cwd/l/" class="btn btn1">立即登录</a><br>
+                    <a href="#" class="btn btn2">立即注册</a>
+                </div>
+            </div>
+        </div>
+        <!-- end banner -->
+        <div class="zscf_con_wper pb30">
+        <div class="zscf_con px1000">
+        <div class="zscf_block3 mt30 ">
+            <h2 class="block3_tit clearfix"><span class="block3_curspan">展示房屋</span><em><img
+                    src="images/shu.png"
+                    alt=""></em></h2>
+            <div class="block3_pro_box clear">
+                <div class="block3_prolist">
+                    {% for i in hous %}
+                        {% if 5 < i.house_id and i.house_id < 10 %}
+                            <div class="block3_proone clearfix clear">
+                                    <span class="fl proone_left">     <div class="tjxm_jindu ">
+
+                                                </div></span>
+                                <!--  -->
+                                <div class="fl proone_center">
+                                    <div class="clearfix">
+                                        <span class="fl proone_center_span1">{{ i.title }}</span>
+                                        <div class="block2_biao_r fr">
+
+                                        </div>
+                                    </div>
+
+                                    <ul class="clearfix proone_center_ul clear pt10">
+                                        <li>租金:<span>{{ i.price }}元</span></li>
+                                        <li>房间平米:<span>{{ i.acreage }}m²</span></li>
+                                        <li>区域：<span>{{ i.address }}</span></li>
+                                    </ul>
+                                </div>
+                                <!--  -->
+                                <a href="{{ i.house_id }}" class="block3_btn fl">查看详情</a>
+                                <img src="{{ i.index_img_url }}"
+                                     data-img="{{ i.index_img_url }} " alt="{{ i.title }}"
+                                     style="width: 140px ;height: 100px; ">
+
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- end 项目列表 -->
+                <div class="block3_prolist" style="display:none;">
+                    2
+                </div>
+            </div>
+        </div>
+        <!-- end block3 -->
+        <div class="zscf_block4 mt30">
+            <img src="images/block4_adver.png">
+        </div>
+        <!-- end block4 -->
+
+    {% endblock %}
+
