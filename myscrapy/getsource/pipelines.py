@@ -89,12 +89,13 @@ class SaveToMysql(object):
         # print('完成sql3')
 
         # 插入房屋信息
-        sql4 = f"insert into `house`(user_id, area_id, type_id, title, price, address, acreage, index_img_url)" \
-               f"select (select user_id from user where nick_name='{dict(item)['publisher_name']}'), " \
+        sql4 = f"insert into `house`(user_id, area_id, type_id, title, price, address, acreage, index_img_url, " \
+               f"house_status) select (select user_id from user where nick_name='{dict(item)['publisher_name']}'), " \
                f"(select area_id from area where name='{dict(item)['position']}')," \
                f"(select type_id from house_type where type_name='{dict(item)['house_type']}'), '{dict(item)['title']}', " \
                f"'{dict(item)['price']}', '{dict(item)['real_position']}', '{dict(item)['area']}', " \
-               f"'{dict(item)['pic_url'][0]}' from dual {self.sql('house_id', 'house', 'title', dict(item)['title'])};"
+               f"'{dict(item)['pic_url'][0]}','{dict(item)['house_state']}' " \
+               f"from dual {self.sql('house_id', 'house', 'title', dict(item)['title'])};"
         # print(sql4)
         self.cursor.execute(sql4)
         self.dbcon.commit()
