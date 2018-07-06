@@ -3,7 +3,6 @@ django_env/
 project/.idea/
 .idea/
 myscrapy/.idea/
-
 *.jar  
 *.war  
 *.zip  
