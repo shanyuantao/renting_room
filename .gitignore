@@ -1,5 +1,6 @@
 i# maven ignore  
-django_env/  
+django_env/
+.idea/  
 *.jar  
 *.war  
 *.zip  

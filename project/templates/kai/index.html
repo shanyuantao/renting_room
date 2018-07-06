@@ -1,0 +1,305 @@
+{% load static %}
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>首页</title>
+<link rel="stylesheet" type="text/css" href="{% static '/css/style.css'%}">
+<!-- <link rel="stylesheet/less" type="text/css" href="css/style.less" /> -->
+<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/all.js'%}"></script>
+<!--[if IE 6]> 
+<script src="./js/iepng.js" type="text/javascript"></script> 
+<script type="text/javascript">
+   EvPNG.fix('div, ul, img, li, input,span, p');
+</script>
+<![endif]-->
+</head>
+
+<body>
+<!-- header start -->
+<div class="zxcf_top_wper">
+	<div class="zxcf_top px1000 clearfix">
+		 <div class="zxcf_top_l fl">
+		    <img src="images/zxcf_phone.png" alt="">
+		    400-888-9999(工作时间9:00-17:30)
+		    <a href="#"><img src="images/zxcf_weixin.png" alt=""></a>
+		    <a href="#"><img src="images/zxcf_sina.png" alt=""></a>
+		    <a href="#"><img src="images/zxcf_qq.png" alt=""></a>
+		 </div>
+	</div>
+</div>
+<!-- end top -->
+<div class="zxcf_menu_wper">
+	<div class="zxcf_menu px1000">
+		  <a href="index.html" class="zm_cura">首页</a>
+		  <a href="invest.html">我要租房</a>
+		  <a href="borrow.html">我要租房</a>
+		  <a href="#">我要租房</a>
+		  <a href="noticelist.html">我要租房</a>
+		  <a href="#" style="margin-right:0;">个人中心</a>
+	</div>
+</div>
+<!-- end  -->
+<div class="zscf_banner_wper">
+	<div class="zscf_banner px1000">
+		  <div class="zscf_box">
+		  	   <p>累计成交：<strong>3万单</strong></p>
+		  	   <p>运营时间：<strong>123天</strong></p>
+		  	   <p><strong>24</strong>小时成功租住率<strong>12.12%</strong></p>
+
+{#               如果用户未登录#}
+               {% if request.session.account == null %}
+                    <a href="{% url 'kaiapp:login' %}" class="btn btn1">立即登录</a><br>
+                    <a href="{% url 'kaiapp:register' %}" class="btn btn2">立即注册</a>
+
+{#               如果用户已登录，且存在nick_name#}
+               {% elif request.session.account and one_data.nick_name %}
+                   <a href="#" class="btn btn1">{{ one_data.nick_name }}</a><br>
+                   <a href="{% url 'kaiapp:logout' %}" class="btn btn2">安全退出</a>
+
+{#                如果用户已登录，且未修改nick_name#}
+               {% else %}
+                   <a href="#" class="btn btn1">{{ request.session.account }}</a><br>
+                   <a href="{% url 'kaiapp:logout' %}" class="btn btn2">安全退出</a>
+
+               {% endif %}
+		  </div>
+	</div>
+</div>
+<!-- end banner -->
+<div class="zscf_con_wper pb30">
+	<div class="zscf_con px1000">
+	      <div class="zscf_block1 mt30 ">
+	      	  <h2 class="zscf_block1_tit clearfix"><span class="fl"><strong>新房发布</strong></span><a href="#" class="fr">查看更多>></a></h2>
+	      	  <div class="clearfix clear">
+		      	  <ul class="zscf_block1_text clearfix fl">
+{#                      {% for data in latest_data %}#}
+                          <li>
+                               <span class="block1_libg01">房源</span>
+                               <br>
+                               <em><strong>{{ latest_data.title }}</strong></em>
+                          </li>
+                          <li>
+                               <span class="block1_libg02">地址</span>
+                               <br>
+                               <em><strong>{{ latest_data.address }}</strong></em>
+                          </li>
+                          <li>
+                               <span class="block1_libg03">价格</span>
+                               <br>
+                               <em><strong>{{ latest_data.price }}</strong>￥</em>
+                          </li>
+{#                      {% endfor %}#}
+		      	  </ul>
+		      	 <!-- end l -->
+	      	  </div>
+	      </div>
+
+         <!--  end block2 -->
+         <div class="zscf_block3 mt30 ">
+         	   <h2 class="block3_tit clearfix"><span class="block3_curspan">房源列表</span><a href="#">查看更多></a></h2>
+         	  <div class="block3_pro_box clear">
+         	  	    <div class="block3_prolist">
+
+         	  	    	  <div class="block3_proone clearfix clear">
+         	  	    	  	   <span class="fl proone_left"><img src="images/xin.png" alt=""></span>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <div class="fl proone_center">
+         	  	    	  	   	    <div class="clearfix">
+						      	    	 <span class="fl proone_center_span1">房源</span>
+						      	    	 <div class="block2_biao_r fr">
+						      	    	  	   <div class="tjxm_jindu "></div>
+						      	    	  </div>
+					      	    	 </div>
+					      	    	  <ul class="clearfix proone_center_ul clear pt10">
+					      	    	  	<li>房屋租金:<span>12.5%</span></li>
+					      	    	  	<li>房屋面积:<span>24个月</span></li>
+					      	    	  	<li>房屋地址<span>123122132元</span></li>
+					      	    	  </ul>  
+         	  	    	  	   </div>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <a href="11112/detail.html" class="block3_btn fl">查看详情</a>
+         	  	    	  </div>
+         	  	    	  <!--listone  -->
+         	  	    	  <div class="block3_proone clearfix clear">
+         	  	    	  	   <span class="fl proone_left"><img src="images/xin.png" alt=""></span>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <div class="fl proone_center">
+         	  	    	  	   	    <div class="clearfix">
+						      	    	 <span class="fl proone_center_span1">房源</span>
+						      	    	 <div class="block2_biao_r fr">
+						      	    	  	   <div class="tjxm_jindu "></div>
+						      	    	  </div>
+					      	    	 </div>
+					      	    	  <ul class="clearfix proone_center_ul clear pt10">
+					      	    	  	<li>房屋租金:<span>12.5%</span></li>
+					      	    	  	<li>房屋面积:<span>24个月</span></li>
+					      	    	  	<li>房屋地址<span>123122132元</span></li>
+					      	    	  </ul>  
+         	  	    	  	   </div>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <a href="11112/detail.html" class="block3_btn fl">查看详情</a>
+         	  	    	  </div>
+         	  	    	  <!--listone  -->
+         	  	    	  <div class="block3_proone clearfix clear">
+         	  	    	  	   <span class="fl proone_left"><img src="images/xin.png" alt=""></span>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <div class="fl proone_center">
+         	  	    	  	   	    <div class="clearfix">
+						      	    	 <span class="fl proone_center_span1">房源</span>
+						      	    	 <div class="block2_biao_r fr">
+						      	    	  	   <div class="tjxm_jindu "></div>
+						      	    	  </div>
+					      	    	 </div>
+					      	    	  <ul class="clearfix proone_center_ul clear pt10">
+					      	    	  	<li>房屋租金:<span>12.5%</span></li>
+					      	    	  	<li>房屋面积:<span>24个月</span></li>
+					      	    	  	<li>房屋地址<span>123122132元</span></li>
+					      	    	  </ul>  
+         	  	    	  	   </div>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <a href="11112/detail.html" class="block3_btn fl">查看详情</a>
+         	  	    	  </div>
+         	  	    	  <!--listone  -->
+         	  	    	  <div class="block3_proone clearfix clear">
+         	  	    	  	   <span class="fl proone_left"><img src="images/xin.png" alt=""></span>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <div class="fl proone_center">
+         	  	    	  	   	    <div class="clearfix">
+						      	    	 <span class="fl proone_center_span1">房源</span>
+						      	    	 <div class="block2_biao_r fr">
+						      	    	  	   <div class="tjxm_jindu "></div>
+						      	    	  </div>
+					      	    	 </div>
+					      	    	  <ul class="clearfix proone_center_ul clear pt10">
+					      	    	  	<li>房屋租金:<span>12.5%</span></li>
+					      	    	  	<li>房屋面积:<span>24个月</span></li>
+					      	    	  	<li>房屋地址<span>123122132元</span></li>
+					      	    	  </ul>  
+         	  	    	  	   </div>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <a href="11112/detail.html" class="block3_btn fl">查看详情</a>
+         	  	    	  </div>
+         	  	    	  <!--listone  -->
+         	  	    	  <div class="block3_proone clearfix clear">
+         	  	    	  	   <span class="fl proone_left"><img src="images/xin.png" alt=""></span>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <div class="fl proone_center">
+         	  	    	  	   	    <div class="clearfix">
+						      	    	 <span class="fl proone_center_span1">房源</span>
+						      	    	 <div class="block2_biao_r fr">
+						      	    	  	   <div class="tjxm_jindu "></div>
+						      	    	  </div>
+					      	    	 </div>
+					      	    	  <ul class="clearfix proone_center_ul clear pt10">
+					      	    	  	<li>房屋租金:<span>12.5%</span></li>
+					      	    	  	<li>房屋面积:<span>24个月</span></li>
+					      	    	  	<li>房屋地址<span>123122132元</span></li>
+					      	    	  </ul>  
+         	  	    	  	   </div>
+         	  	    	  	   <!--  -->
+         	  	    	  	   <a href="11112/detail.html" class="block3_btn fl">查看详情</a>
+         	  	    	  </div>
+         	  	    	  <!--listone  -->
+         	  	    </div>
+         	  	    <!-- end 项目列表 -->
+         	  	     <div class="block3_prolist" style="display:none;">
+         	  	     2
+         	  	     </div>
+         	  </div>
+         </div>
+
+         <!-- end block4 -->
+         <div class="zscf_partner mt30">
+         	 <h2 class="block3_tit clearfix "><span class="block3_curspan">合作伙伴</span></h2>
+         	 <div class="partner_con">
+         	      <div id="demo">
+					<div id="indemo">
+					<div id="demo1">
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					<a href="#"><img src="images/ifri01.png" border="0" /></a>
+					</div>
+					<div id="demo2"></div>
+					</div>
+					</div>
+               <script>
+				<!--
+				var speed=10;
+				var tab=document.getElementById("demo");
+				var tab1=document.getElementById("demo1");
+				var tab2=document.getElementById("demo2");
+				tab2.innerHTML=tab1.innerHTML;
+				function Marquee(){
+				if(tab2.offsetWidth-tab.scrollLeft<=0)
+				tab.scrollLeft-=tab1.offsetWidth
+				else{
+				tab.scrollLeft++;
+				}
+				}
+				var MyMar=setInterval(Marquee,speed);
+				tab.onmouseover=function() {clearInterval(MyMar)};
+				tab.onmouseout=function()  {MyMar=setInterval(Marquee,speed)};
+				-->
+				</script>
+
+          	 </div>
+         </div>
+	</div>
+</div>
+<!-- footer start -->
+<div class="zscf_aboutus_wper">
+	  <div class="zscf_aboutus px1000 clearfix">
+	  	    <div class="zscf_aboutus_l fl">
+	  	    	   <ul class="zscf_aboutus_lul clearfix">
+	  	    	   	  <li class="pt10"><a href="#"><img src="images/app.png" alt=""></a>
+	  	    	   	  </li>
+	  	    	   	  <li>
+	  	    	   	  <p class="pb20">服务热线</p>
+	  	    	   	  <strong>400-888-9999</strong>
+	  	    	   	  </li>
+	  	    	   	  <li>
+	  	    	   	  	  <p class="pb10 linkpic">
+	  	    	   	  	     <a href="#"><img src="images/ft_sina.png" alt=""></a>
+	  	    	   	  	     <a href="#"><img src="images/ft_weixin.png" alt=""></a>
+	  	    	   	  	     <a href="#"><img src="images/ft_erji.png" alt=""></a>
+	  	    	   	  	  </p>
+	  	    	   	  	  <p><a href="#">kefu@zhongxincaifu.com</a></p>
+	  	    	   	  </li>
+	  	    	   </ul>
+	  	    </div>
+	  	    <!-- end left -->
+	  	    <div class="zscf_aboutus_r fl clearfix">
+	  	    	 <a href="#" class="fl ft_ewm"><img src="images/ft_erweima.png" alt=""></a>
+	  	    	 <ul class="fl clearfix">
+	  	    	 	<li><a href="#">联系我们</a></li>
+	  	    	 	<li><a href="#">我要租房</a></li>
+	  	    	 	<li><a href="problem.html">帮助中心</a></li>
+	  	    	 	<li><a href="#">友情链接</a></li>
+	  	    	 	<li><a href="#">招贤纳士</a></li>
+	  	    	 	<li><a href="#">房租计算器</a></li>
+	  	    	 </ul>
+	  	    </div>
+	  	    <!-- end right -->
+
+	  </div>
+</div>
+
+<div class="zscf_bottom_wper">
+	<div class="zscf_bottom px1000 clearfix">
+		  <p class="fl">© 2018 woaizufang &nbsp;  &nbsp;&nbsp;   我爱租房服务股份有限公司 &nbsp;&nbsp;&nbsp;</p>
+		  <p class="fr">
+		    <a href="#"><img src="images/360.png" alt=""></a>
+		    <a href="#"><img src="images/kexin.png" alt=""></a>
+		    <a href="#"><img src="images/norton.png" alt=""></a>
+		  </p>
+	</div>
+</div>
+<!-- footer end -->
+</body>
+</html>

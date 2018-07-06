@@ -130,8 +130,8 @@ class User(models.Model):
     avatar = models.CharField(max_length=1024, blank=True, null=True)
     id_name = models.CharField(max_length=64, blank=True, null=True)
     id_card = models.CharField(max_length=64, blank=True, null=True)
-    ticket = models.CharField(max_length=255,
-                              blank=True, null=True)
+    ticket = models.CharField(max_length=255, blank=True, null=True)
+    out_time = models.DateTimeField()
 
     class Meta:
         managed = False
