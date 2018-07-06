@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = STATICFILES_DIRS[0]  # 同上
+# STATIC_ROOT = STATICFILES_DIRS[0]  # 同上
 
 # 配置上传文件路径
 MEDIA_URL = '/media/'

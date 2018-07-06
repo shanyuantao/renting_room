@@ -18,6 +18,10 @@ class Area(models.Model):
         managed = False
         db_table = 'area'
 
+    def __str__(self):
+        return self.name
+
+
 
 class Collect(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
@@ -42,17 +46,20 @@ class Count(models.Model):
 class House(models.Model):
     house_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    area = models.ForeignKey(Area, models.DO_NOTHING, blank=True, null=True)
+    area = models.ForeignKey('Area', models.DO_NOTHING, blank=True, null=True)
     type = models.ForeignKey('HouseType', models.DO_NOTHING, blank=True, null=True)
     title = models.CharField(max_length=1024, blank=True, null=True)
     price = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=512, blank=True, null=True)
-    acreage = models.IntegerField(blank=True, null=True)
+    acreage = models.IntegerField(blank=True, null=True) #面积
     index_img_url = models.CharField(max_length=1024, blank=True, null=True)
+
 
     class Meta:
         managed = False
         db_table = 'house'
+
+
 
 
 class Facility(models.Model):
@@ -108,6 +115,9 @@ class HouseType(models.Model):
     class Meta:
         managed = False
         db_table = 'house_type'
+
+    def __str__(self):
+        return self.type_name
 
 
 class Role(models.Model):
