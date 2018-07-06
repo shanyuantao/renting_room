@@ -1,0 +1,275 @@
+
+    .page {
+      font-weight: 900;
+      height: 40px;
+      text-align: right;
+      color: #888;
+      margin: 20px auto 0;
+      background: #f2f2f2;
+    }
+
+    .pagelist {
+      font-size: 0;
+      background: #fff;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .pagelist span {
+      font-size: 14px;
+    }
+
+    .pagelist .jump {
+      border: 1px solid #ccc;
+      padding: 5px 8px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .pagelist .bgprimary {
+      cursor: default;
+      color: #fff;
+      background: #337ab7;
+      border-color: #337ab7;
+    }
+
+    .jumpinp input {
+      width: 55px;
+      height: 26px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .ellipsis {
+      padding: 0px 8px;
+    }
+
+    .jumppoint {
+      margin-left: 30px;
+    }
+
+    .pagelist .gobtn {
+      font-size: 12px;
+    }
+
+    .bgprimary {
+      cursor: default;
+      color: #fff;
+      background: #337ab7;
+      border-color: #337ab7;
+    }
+    .pagelist .jump.disabled{
+      pointer-events: none;
+      background: #ddd;
+    }
+	/**/
+.tools {
+	clear: both;
+	height: 35px;
+	margin-bottom: 8px;
+}
+.toolbar {
+	float: left;
+}
+.toolbar li {
+	background: url(../images/toolbg.gif) repeat-x;
+	line-height: 33px;
+	height: 33px;
+	border: solid 1px #d3dbde;
+	float: left;
+	padding-right: 10px;
+	margin-right: 5px;
+	border-radius: 3px;
+	behavior: url(js/pie.htc);
+	cursor: pointer;
+}
+.toolbar li span {
+	float: left;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+.toolbar1 {
+	float: right;
+}
+.toolbar1 li {
+	background: url(../images/toolbg.gif) repeat-x;
+	line-height: 33px;
+	height: 33px;
+	border: solid 1px #d3dbde;
+	float: left;
+	padding-right: 10px;
+	margin-left: 5px;
+	border-radius: 3px;
+	behavior: url(js/pie.htc);
+}
+.toolbar1 li span {
+	float: left;
+	margin-left: 10px;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+/**/
+
+.tablelist {
+	border: solid 1px #cbcbcb;
+	width: 100%;
+	clear: both;
+}
+.tablelist th {
+	background: url(../images/th.gif) repeat-x;
+	height: 34px;
+	line-height: 34px;
+	border-bottom: solid 1px #b6cad2;
+	text-indent: 11px;
+	text-align: left;
+}
+.tablelist td {
+	line-height: 35px;
+	text-indent: 11px;
+	border-right: dotted 1px #c7c7c7;
+}
+.tablelink {
+	color: #056dae;
+}
+.tablelist tbody tr.odd {
+	background: #f5f8fa;
+}
+.tablelist tbody tr:hover {
+	background: #e5ebee;
+}
+.sort {
+	padding-left: 3px;
+}
+.sp{
+	height:22px;
+	line-height:22px;
+	padding:0 5px;
+	font-size:13px;
+	background-color:#1e9fff;
+	display:inline-block;
+	color:#fff;
+	white-space:nowrap;
+	text-align:center;
+	border:none;
+	border-radius:0px;
+	cursor:pointer;
+	opacity:.9;
+	}
+	.sp2{
+	height:22px;
+	line-height:22px;
+	padding:0 5px;
+	font-size:13px;
+	background-color:#d62a3b;
+	display:inline-block;
+	color:#fff;
+	white-space:nowrap;
+	text-align:center;
+	border:none;
+	border-radius:0px;
+	cursor:pointer;
+	opacity:.9;
+	}
+		.sp3{
+	height:22px;
+	line-height:22px;
+	padding:0 5px;
+	font-size:13px;
+	background-color:#999;
+	display:inline-block;
+	color:#fff;
+	white-space:nowrap;
+	text-align:center;
+	border:none;
+	border-radius:0px;
+	cursor:pointer;
+	opacity:.9;
+	}
+	/*radio*/
+	.inputGroup label {
+  padding: 12px 30px;
+  width: 20%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-size:20px;
+  float:left;
+  padding-left:335px;
+}
+
+.inputGroup label:after {
+  width: 30px;
+  height: 30px;
+  content: '';
+  border: 2px solid #D1D7DC;
+  background-image: url(../images/dui.png);
+  
+  background-position: 3px 3px;
+  border-radius: 50%;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+
+.inputGroup input:checked ~ label:after {
+  background-color: #54E0C7;
+  border-color: #54E0C7;
+}
+.inputGroup input {
+  position: absolute;
+  visibility: hidden;
+}
+
+	.inputGroup1 label {
+  padding: 12px 30px;
+  width: 20%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-size:20px;
+  float:left;
+  padding-left:100px;
+}
+
+.inputGroup1 label:after {
+  width: 30px;
+  height: 30px;
+  content: '';
+  border: 2px solid #D1D7DC;
+  background-image: url(../images/dui.png);
+  
+  background-position: 3px 3px;
+  border-radius: 50%;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+
+.inputGroup1 input:checked ~ label:after {
+  background-color: #54E0C7;
+  border-color: #54E0C7;
+}
+.inputGroup1 input {
+  position: absolute;
+  visibility: hidden;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
