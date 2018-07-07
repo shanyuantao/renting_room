@@ -23,6 +23,7 @@ class Collect(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     house = models.ForeignKey('House', models.DO_NOTHING, blank=True, null=True)
 
+
     class Meta:
         managed = False
         db_table = 'collect'
@@ -50,6 +51,8 @@ class House(models.Model):
     acreage = models.IntegerField(blank=True, null=True)
     index_img_url = models.CharField(max_length=1024, blank=True, null=True)
     house_status = models.CharField(max_length=10, null=True)
+    col_user = models.ManyToManyField('User', through='Collect', related_name='col_house')
+
 
     class Meta:
         managed = False
@@ -133,6 +136,7 @@ class User(models.Model):
     id_card = models.CharField(max_length=64, blank=True, null=True)
     ticket = models.CharField(max_length=255, blank=True, null=True)
     out_time = models.DateTimeField()
+
 
     class Meta:
         managed = False
