@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'detail',
+    'detail',
     'cwdapp',
-    'xym'
-]
+    'xym']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

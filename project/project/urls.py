@@ -25,6 +25,8 @@ urlpatterns = [
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),  # 配置这个用来DEBUG等于False的时候可以加载静态文件
 
 
+    url(r'kaiapp/', include('kaiapp.urls', namespace='kaiapp')),
+    url(r'^detail/', include('detail.urls')),
     url(r'^cwd/', include('cwdapp.urls')),
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),  # 配置这个用来DEBUG等于False的时候可以加载静态文件
 

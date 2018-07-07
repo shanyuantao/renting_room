@@ -45,9 +45,10 @@ def My_self(request):
     if request.method == 'POST':
         nick_name = request.POST.get('nick_name')
         img_url = request.FILES.get('avatar')
+        img_url = img_url
         # path = default_storage.save('../meida/' + img_url.name, ContentFile(img_url.read()))
         # tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-        User.objects.filter(user_id=user_id.user_id).update(nick_name=nick_name, avatar=img_url)
+        User.objects.filter(user_id=user_id.user_id).create(nick_name=nick_name, avatar=img_url)
         return HttpResponseRedirect('/cwd/myself/')
 
 
@@ -84,7 +85,7 @@ def I_like(request):
     user = Get_user(request)
     if request.method == 'GET':
         if user:
-            house = Collect.objects.filter(user_id=user).house
+            house = User.objects.get(user_id=user.user_id).col_house.all()
             return render(request, 'cwd/adv.html', {'house': house})
         else:
             return HttpResponseRedirect('/cwd/index/')
@@ -116,6 +117,15 @@ def Ture_name(request):
 
         else:
             return HttpResponse('请将信息输入完整')
+
+
+# 我发布的房源
+def My_house(request):
+    user = Get_user(request)
+    if user:
+        if request.method == 'GET':
+            house = House.objects.filter(user_id=user.user_id)
+            return render(request, 'cwd/my_house.html', {'house': house, 'user': user})
 
 
 # 用户登录

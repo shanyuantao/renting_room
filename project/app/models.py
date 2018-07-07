@@ -131,7 +131,7 @@ class User(models.Model):
     password = models.CharField(max_length=128, blank=True, null=True)
     phone = models.CharField(max_length=128,blank=True, null=True)
     nick_name = models.CharField(max_length=128, blank=True, null=True)
-    avatar = models.CharField(max_length=1024, blank=True, null=True)
+    avatar = models.ImageField(upload_to='icon', blank=True, null=True)
     id_name = models.CharField(max_length=64, blank=True, null=True)
     id_card = models.CharField(max_length=64, blank=True, null=True)
     ticket = models.CharField(max_length=255, blank=True, null=True)
