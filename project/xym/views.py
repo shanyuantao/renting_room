@@ -16,12 +16,12 @@ from django.shortcuts import render
 # 首页
 from django.views.decorators.csrf import csrf_exempt
 
-from app.models import Facility, Area, HouseType, House, User, HouseDetail, HouseImg, HouseFacility
+from xym.models import Facility, Area, HouseType, House, User, HouseDetail, HouseImg, HouseFacility
 
 
 def my_home(request):
     if request.method == 'GET':
-        return render(request, 'index.html')
+        return render(request, 'xym/index.html')
 
 
 # 登陆页面
@@ -30,7 +30,7 @@ def my_home(request):
 def login(request):
     # get请求获取登录页面
     if request.method == 'GET':
-        return render(request, 'login.html')
+        return render(request, 'xym/login.html')
 
     # post请求获取信息
     if request.method == 'POST':
@@ -47,7 +47,7 @@ def login(request):
                 # 将登录的账户名传递给session对象
                 request.session['account'] = account
 
-                return HttpResponseRedirect('app:index')
+                return HttpResponseRedirect('xym:index')
                 # return render(request,'index.html',data)
 
             else:
@@ -59,7 +59,7 @@ def login(request):
 # 注册
 def my_register(requst):
     if requst.method == 'GET':
-        return render(requst, 'register.html')
+        return render(requst, 'xym/register.html')
 
 
 # # 上传新房源,做用户认证
@@ -189,7 +189,7 @@ def my_new_house(request):
             'type_names': type_names,
             'facility_id':facility_id
         }
-        return render(request, 'newhouse.html', data)
+        return render(request, 'xym/newhouse.html', data)
 
     if request.method == 'POST':
 

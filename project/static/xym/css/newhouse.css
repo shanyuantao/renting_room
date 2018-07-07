@@ -4,7 +4,7 @@ body {
 }
 .container {
     padding: 0px;
-    background-image: url("/static/images/grass.png");
+    background-image: url("/static/xym/images/grass.png");
 }
 .top-bar {
     position: fixed;

@@ -4,10 +4,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>首页</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/xym/css/style.css' %}">
 <!-- <link rel="stylesheet/less" type="text/css" href="css/style.less" /> -->
-<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/all.js' %}"></script>
+<script type="text/javascript" src="{% static '/xym/js/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/xym/js/all.js' %}"></script>
 <!--[if IE 6]>
 <script src="./js/iepng.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -22,9 +22,9 @@
 		 <div class="zxcf_top_l fl">
 		    <img src="images/zxcf_phone.png" alt="">
 		    400-027-0101(工作时间9:00-17:30)
-		    <a href="#"><img src="{% static 'images/zxcf_weixin.png' %}" alt=""></a>
-		    <a href="#"><img src="{% static 'images/zxcf_sina.png' %}" alt=""></a>
-		    <a href="#"><img src="{% static 'images/zxcf_qq.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/zxcf_weixin.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/zxcf_sina.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/zxcf_qq.png' %}" alt=""></a>
 		 </div>
 		 <div class="zxcf_top_r fr">
 		 	<a href="login.html" class="curspan">立即登录</a>
@@ -38,9 +38,9 @@
 <!-- end top -->
 <div class="zxcf_nav_wper">
 	<div class="zxcf_nav clearfix px1000">
-		 <div class="zxcf_nav_l fl"><img src="{% static 'images/zxcf_logo.png' %}" alt=""></div>
+		 <div class="zxcf_nav_l fl"><img src="{% static '/xym/images/zxcf_logo.png' %}" alt=""></div>
 		 <div class="zxcf_nav_r fr">
-		 		<img src="{% static 'images/lg_pic01.png' %}" alt="">
+		 		<img src="{% static '/xym/images/lg_pic01.png' %}" alt="">
 		 	<span>
 		    <a href="index.html">返回首页</a></span>
 
@@ -52,7 +52,7 @@
 	  <div class="login_con px1000 ">
 	  	   <div class="lg_section clearfix">
 {#              <div class="'lg_section_1">#}
-{#                   <img src="{% static 'images/lg_bg02.png' %}" width="200">#}
+{#                   <img src="{% static '/xym/images/lg_bg02.png' %}" width="200">#}
 {#              </div>#}
 
 	  	   	     <!-- end l -->
@@ -61,7 +61,7 @@
 	  	   	     	      <span class="fl">登录</span>
 	  	   	     	      <em class="fr">没有帐号，<a href="#">立即注册</a></em>
 	  	   	     	   </h2>
-	  	   	     	   <form method="post" action="{% url 'app:login' %}">
+	  	   	     	   <form method="post" action="{% url 'xym:login' %}">
                            {% csrf_token %}
 	  	   	     	   	    <fieldset>
 	  	   	     	   	    	  <p class="mt20">
@@ -83,7 +83,7 @@
 	  <div class="zscf_aboutus px1000 clearfix">
 	  	    <div class="zscf_aboutus_l fl">
 	  	    	   <ul class="zscf_aboutus_lul clearfix">
-	  	    	   	  <li class="pt10"><a href="#"><img src="{% static 'images/app.png' %}" alt=""></a>
+	  	    	   	  <li class="pt10"><a href="#"><img src="{% static '/xym/images/app.png' %}" alt=""></a>
 	  	    	   	  </li>
 	  	    	   	  <li>
 	  	    	   	  <p class="pb20">服务热线</p>
@@ -91,9 +91,9 @@
 	  	    	   	  </li>
 	  	    	   	  <li>
 	  	    	   	  	  <p class="pb10 linkpic">
-	  	    	   	  	     <a href="#"><img src="{% static 'images/ft_sina.png' %}" alt=""></a>
-	  	    	   	  	     <a href="#"><img src="{% static 'images/ft_weixin.png' %}" alt=""></a>
-	  	    	   	  	     <a href="#"><img src="{% static 'images/ft_erji.png' %}" alt=""></a>
+	  	    	   	  	     <a href="#"><img src="{% static '/xym/images/ft_sina.png' %}" alt=""></a>
+	  	    	   	  	     <a href="#"><img src="{% static '/xym/images/ft_weixin.png' %}" alt=""></a>
+	  	    	   	  	     <a href="#"><img src="{% static '/xym/images/ft_erji.png' %}" alt=""></a>
 	  	    	   	  	  </p>
 	  	    	   	  	  <p><a href="#">kefu@zhongxincaifu.com</a></p>
 	  	    	   	  </li>
@@ -101,7 +101,7 @@
 	  	    </div>
 	  	    <!-- end left -->
 	  	    <div class="zscf_aboutus_r fl clearfix">
-	  	    	 <a href="#" class="fl ft_ewm"><img src="{% static 'images/ft_erweima.png' %}" alt=""></a>
+	  	    	 <a href="#" class="fl ft_ewm"><img src="{% static '/xym/images/ft_erweima.png' %}" alt=""></a>
 	  	    	 <ul class="fl clearfix">
 	  	    	 	<li><a href="#">联系我们</a></li>
 	  	    	 	<li><a href="#">我要租房</a></li>
@@ -120,9 +120,9 @@
 	<div class="zscf_bottom px1000 clearfix">
 		  <p class="fl">© 2014 zhongxincaifu &nbsp;  &nbsp;&nbsp;   东陵才俊房源股份有限公司</p>
 		  <p class="fr">
-		    <a href="#"><img src="{% static 'images/360.png' %}" alt=""></a>
-		    <a href="#"><img src="{% static 'images/kexin.png' %}" alt=""></a>
-		    <a href="#"><img src="{% static 'images/norton.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/360.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/kexin.png' %}" alt=""></a>
+		    <a href="#"><img src="{% static '/xym/images/norton.png' %}" alt=""></a>
 		  </p>
 	</div>
 

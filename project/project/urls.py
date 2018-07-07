@@ -20,7 +20,7 @@ from project import settings
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url(r'^app/', include(('app.urls', 'app'), namespace='app')),
+    url(r'^xym/', include(('xym.urls', 'xym'), namespace='xym')),
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),  # 配置这个用来DEBUG等于False的时候可以加载静态文件
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     # 配置这个用来DEBUG等于False的时候去加载静态图片
