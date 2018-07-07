@@ -1,0 +1,209 @@
+body{
+		margin: 0;
+		padding:0;
+	}	
+
+	.container{
+		font-family: 微软雅黑;
+		background: #fff;
+		padding: 10px;
+		margin:10px auto;
+        overflow: hidden;
+		background:url(../images/bg_main.png) no-repeat;
+		height:600px;
+	}
+
+	.container .menu{
+		width: 250px;
+		margin-left: 60px;
+		float: left;
+		height:600px;
+		border-right: 1px solid #aaa;
+		overflow-y:scroll;
+	}
+	::-webkit-scrollbar {
+        display: none;
+	}
+/*position 菜单背景图标*/
+	.positionIicon{
+		display: inline block;
+		width: 32px;
+		height: 32px;
+		margin: 0px 4px;
+		float: left;
+		margin-right: 10px;
+	}
+/*menu图标*/
+	.q-menu-img{
+	background-image: url(../images/iconfont-kuaisulu.png);
+	}
+
+
+	.container .menu h3{
+		font-family: "Helvetica Neue", Helvetica, "PingFang SC", \5FAE\8F6F\96C5\9ED1, Tahoma, Arial, sans-serif;
+		font-size: 20px;
+		cursor: pointer;
+	}
+    .container .menu ul{
+        display: none;
+    }
+	.container .menu ul li{
+		height: 28px;
+		line-height: 28px;
+	}
+
+	.container .menu ul li a:hover{
+		background: #9FB6CD;
+		border-radius: 14px;
+		-webkit-border-radius: 14px;
+		-moz-border-radius: 14px;
+		-moz-border-radius:14px;
+		color:#fff;
+	
+	}
+
+	ul{
+		list-style: none;
+	}
+
+	a{
+		text-decoration: none;
+		color: #000;
+		font-size: 16px;
+		display: block;
+		width: 180px;
+		height: 26px;
+		padding-left: 10px;
+	}
+
+	.container .menu .selected{
+		background: #ccc;
+		border-radius: 14px;
+	}
+
+
+
+	.container .content{
+		margin-top: 15px;
+		width: 860px;
+		margin-left: 350px;
+	}
+	.container .menu1{
+		margin-top: 15px;
+		width: 860px;
+		height:500px;
+		overflow:scroll;
+	}
+	.container .content .get-menu{
+		margin-left: 400px;
+	}
+.btn-green {
+	color: #fff;
+	border: 0;
+	padding: 7px 10px;
+	min-width: 92px;
+	z-index: 1;
+	cursor: pointer;
+	font-size: 14px;
+	text-transform: uppercase;
+	background-color: #5fba57;
+	border-radius: 3px;
+	border-bottom: 3px solid #289422;
+	position: relative;
+	transition: 0.3s;
+}
+.btn-green:before {
+	content: "";
+	width: 100%;
+	height: 0;
+	border-radius: 3px;
+	z-index: -1;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background-color: #289422;
+	transition: 0.3s;
+}
+.btn-green:hover:before {
+	height: 100%;
+}
+	.container .content .get-menu a{
+		display: inline-block;
+		font-size: 15px;
+	    height: 40px;
+	}
+
+	.container .content .get-menu a:last-child{
+		margin-left: -8px;
+		color: #7D9EC0;
+	}
+
+	.container .content .get-menu span{
+		display: inline-block;
+	    height: 40px;
+	    margin-left: -110px;
+	}
+
+	.container .content .menu1 .tab {
+		display: none;
+	}
+
+	.container .content .menu1 .active{
+		display: block;
+	}
+
+	.container .content .menu1 .tab p{
+		font-size: 17px;
+		line-height: 20px;
+		color: rgba(0,0,0,1);
+        word-break:break-all;
+	}
+
+	.container .content .menu1 .tab .tt{
+		font-size: 18px;
+		font-weight: bold;
+		color:#1d9fd3;
+
+	}
+/*第二个菜单下的文档内容*/
+	.container .content .menu2 .tab {
+		display: none;
+	}
+
+	.container .content .menu2 .active{
+		display: block;
+	}
+
+	.container .content .menu2 .tab p{
+		font-size: 14px;
+		line-height: 20px;
+		color: rgba(0,0,0,0.8);
+        word-break:break-all;
+	}
+
+	.container .content .menu2 .tab .tt{
+		font-size: 14px;
+		font-weight: bold;
+
+	}
+/*第三个菜单下的文档内容*/
+	.container .content .menu3 .tab {
+		display: none;
+	}
+
+	.container .content .menu3 .active{
+		display: block;
+	}
+
+	.container .content .menu3 .tab p{
+		font-size: 14px;
+		line-height: 20px;
+		color: rgba(0,0,0,0.8);
+        word-break:break-all;
+	}
+
+	.container .content .menu3 .tab .tt{
+		font-size: 13px;
+		font-weight: bold;
+
+	}
