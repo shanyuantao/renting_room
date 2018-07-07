@@ -21,20 +21,21 @@ from project import settings
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^app/', include('app.urls')),
-<<<<<<< HEAD
+
 
     url(r'kaiapp/', include('kaiapp.urls', namespace='kaiapp')),
     url(r'^detail/', include('detail.urls')),
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),  # 配置这个用来DEBUG等于False的时候可以加载静态文件
 
-=======
+
     url(r'^cwd/', include('cwdapp.urls')),
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),  # 配置这个用来DEBUG等于False的时候可以加载静态文件
->>>>>>> cwd
+
     # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     # 配置这个用来DEBUG等于False的时候去加载静态图片
 
     # url(r'^$', views.home),  # 通过空匹配返回首页
+    url(r'^xym/', include(('xym.urls', 'xym'), namespace='xym')),
 ]
 
 from django.contrib.staticfiles.urls import static
