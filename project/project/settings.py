@@ -38,13 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-
-    'detail'
-
+    'detail',
     'cwdapp',
-    
     'xym'
-
 ]
 
 MIDDLEWARE = [
@@ -139,7 +135,7 @@ STATICFILES_DIRS = [
 
 # 配置上传文件路径
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 没有登录的跳转地址
 # LOGIN_URL = ''
