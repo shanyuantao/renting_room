@@ -50,7 +50,9 @@ class House(models.Model):
     address = models.CharField(max_length=512, blank=True, null=True)
     acreage = models.IntegerField(blank=True, null=True)
     index_img_url = models.CharField(max_length=1024, blank=True, null=True)
+    house_status = models.CharField(max_length=10, null=True)
     col_user = models.ManyToManyField('User', through='Collect', related_name='col_house')
+
 
     class Meta:
         managed = False
@@ -129,11 +131,12 @@ class User(models.Model):
     password = models.CharField(max_length=128, blank=True, null=True)
     phone = models.CharField(max_length=128,blank=True, null=True)
     nick_name = models.CharField(max_length=128, blank=True, null=True)
-    avatar = models.CharField(max_length=1024, blank=True, null=True)
+    avatar = models.ImageField(upload_to='icon', blank=True, null=True)
     id_name = models.CharField(max_length=64, blank=True, null=True)
     id_card = models.CharField(max_length=64, blank=True, null=True)
-    ticket = models.CharField(max_length=255,
-                              blank=True, null=True)
+    ticket = models.CharField(max_length=255, blank=True, null=True)
+    out_time = models.DateTimeField()
+
 
 
     class Meta:

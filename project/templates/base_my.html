@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="referrer" content="no-referrer">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/pintuer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/pintuer.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    {% block CSS %}
+
+    {% endblock %}
+</head>
+<body>
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block foot %}
+
+{% endblock %}
+
+
+<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/all.js' %}"></script>
+{% block JS %}
+
+{% endblock %}
+
+</body>
+</html>

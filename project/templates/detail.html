@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="referrer" content="no-referrer">
+	<meta http-equiv="Content-language" content="zh-CN">
+    <title>{{ data.house.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/newDetail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/newzufang.css' %}">
+
+    <script src="{% static 'js/fe.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
+
+{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/base/fe.js?_v=20180705162527790"></script>#}
+{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/common.js?_v=20180705162527790"></script>#}
+
+    <script>var path = 'https://s1.ljcdn.com/feroot/pc/asset?_v=20180705162527790'.split("?");require.config({baseUrl: path[0],paths: {'echarts' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/bar' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/line' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/pie' : '../../dep/echarts-1.4.1/build/echarts','echarts3' : '../../dep/echarts3/echarts3','common': 'common','jquery-ui': '../../dep/jquery-ui/jquery-ui.min','zeroclipboard': '../../dep/zeroclipboard-2.2.0/ZeroClipboard'},urlArgs:  path[1]});var feData = {"cityName": "北京","getFavHouseUrl":       "/api/gethousefav","setFavHouseUrl":       "/api/sethousefav","getLastSearch":        "/api/getlastsearch","getCommunityHistory":  "/api/getcommunityhistory","verifyHouse":          "/api/verifyHouse","getUser":              "/api/getUser","verifyCode":           "/verifycode/getVerifyCode","complaint":            "/api/complaint","getDecoration":        "/api/getDecoration","trendData" :           "/site/getpicinfo"}</script>
+    <script>
+
+  require(['detail/zufang'],function(init){
+    init({
+      isLoged:0,
+      area:'93平米',
+      totalPrice:'1700',
+      houseId:'106101331053',
+      resblockId:'1611061594169',
+      resblockName:'天邑宏御花园御苑',
+      isRemove:0,
+      defaultImg:'https://s1.ljcdn.com/feroot/pc/asset/img/new-version/default_block.png?_v=20180705162527790',
+      defaultBrokerIcon:'https://s1.ljcdn.com/feroot/pc/asset/img/jingjiren/noimg.jpg?_v=20180705162527790',
+      resblockPosition:'103.95459,30.774679',
+      cityId:'510100'
+    });
+  });
+  require(['common/backtopV3'], function (main) {
+    main({
+      ucid: '',
+      uuid: '53299cc7-4eb5-4d77-8ad2-cc408d7879b4',
+      loadingImg: 'https://s1.ljcdn.com/feroot/pc/asset/ershoufang/sellDetail/img/loading.gif?_v=20180705162527790',
+      qrImg: '//ajax.api.lianjia.com/qr/getDownloadQr'
+    });
+  });
+
+  </script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/detail/zufang.js?_v=20180705162527790"></script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/backtopV3.js?_v=20180705162527790"></script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/suggestion.js?_v=20180705162527790"></script>
+
+
+
+    </head>
+    <body>
+    <div class="content-wrapper">
+        <div class="title-wrapper">
+            <div class="content">
+                <div class="title">
+                    <h1 class="main">{{ data.house.title }}</h1>
+                    <div class="sub">这个经纪人很懒，没写核心卖点</div>
+                </div>
+                <div class="btnContainer "><button id="follow">关注房源</button></div>
+            </div>
+        </div>
+
+        <div class="overview">
+            <div class="img" id="topImg">
+                <div class="imgContainer">
+                    <img src="{{ data.house.index_img_url }}" alt="">
+                    <div class="loading" style="display: none;"></div>
+                </div>
+                <div class="thumbnail">
+                    <ul>
+                        {% for img_url in data.house_img%}
+                            <li data-src=""  class="selected">
+                                <img src="{{ img_url.url }}" alt="">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="pre disable">&lt;</div>
+                    <div class="next">&gt;</div>
+                </div>
+            </div>
+            <div class="content zf-content">
+                <div class="price ">
+                    <span class="total">{{ data.house.price }}</span>
+                    <span class="unit">
+                        <span>元/月</span>
+                    </span>
+                    <div class="removeIcon"></div>
+                </div>
+                <div class="zf-room">
+                    <p class="lf"><i>面积：</i>{{ data.house.acreage }}平米</p>
+                    <p class="lf"><i>房屋户型：</i>{{ data.house_type.type_name }}</p>
+                    <p class="lf"><i>楼层：</i>{{ data.house_detail.floor }}</p>
+                    <p class="lf"><i>房屋朝向：</i>{{ data.house_detail.house_head }}</p>
+                    <div class="clear"></div>
+                    <p><i>小区：</i>
+                        <a href="#">{{ data.house_detail.community }}</a>
+                    </p>
+                    <p><i>位置：</i>
+                        <a href="#">{{ data.house_area.name }}</a>
+                        <a href="#">{{ data.house.address }}</a>
+                    </p>
+                    <div class="clear"></div>
+                </div>
+                <div class="brokerInfo" log-mod="zufang_detail_diamond-first">
+                    <a href="#">
+                        <img class="LOGCLICK" data-log_id="20001" data-bl="agent" data-el="1000000020384203" src="{{ data.user.avatar }}" alt="">
+                    </a>
+                    <div class="brokerInfoText">
+                        <div class="brokerName">
+                            <a href="https://dianpu.lianjia.com/1000000020384203" class="name LOGCLICK" data-log_id="20001" data-bl="agent" data-el="1000000020384203">{{ data.user.nick_name }}</a>
+                        </div>
+                        <div class="phone">{{ data.user.phone}}</div>
+                    </div>
+                </div>
+                <div class="houseRecord">
+                    <span class="houseNum">房屋编号：{{ data.house.house_id }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper introduction-wrapper" id="introduction">
+    	<div class="introduction">
+    		<div class="title">房源介绍</div>
+    		<div class="introContent">
+    			<div class="base">
+    				<div class="name">基本属性</div>
+    				<div class="content">
+    					<ul>
+    						<li><span class="label">租赁方式：</span>{{ data.house_detail.lease }}</li>
+    						<li><span class="label">付款方式：</span>{{ data.house_detail.pay_way }}</li>
+    						<li><span class="label">房屋现状：</span>{{  data.house.house_status }}</li>
+    						<li><span class="label">供暖方式：</span></li>
+    					</ul>
+    				</div>
+    			</div>
+    			<div class="feature">
+    				<div class="name">房源特色</div>
+    				<div class="zf-tag">
+    					<ul class="se">
+                            {% for a, b in data.fac %}
+                                {% if b %}
+                                    <li class="{{ a.css }} tags"><span></span>{{ a.facility_name }}<p></p></li>
+                                {% else %}
+                                    <li class="{{ a.css }}"><span></span>{{ a.facility_name }}<p></p></li>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="featureContent">
+                    	<ul>
+                    		<li><span class="label">小区介绍：</span><span class="text">{{ data.house_detail.surround_facility }}</span>
+                    		</li>
+                     		<li><span class="label">交通出行：</span><span class="text">{{ data.house_detail.transportation }}</span>
+                     		</li>
+                     	</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body></html>
