@@ -8,7 +8,7 @@ from project import settings
 from django.core.files.storage import default_storage
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from app.models import House, User
+from app.models import House, User, Collect
 from app import jsonresponse
 
 
@@ -32,9 +32,7 @@ def My_self(request):
     # 获取登录者信息
     user_id = Get_user(request)
     if request.method == 'GET':
-        #
-
-        是否登录
+        # 是否登录
         if user_id:
             # 如果登录才能到个人中心页面
 
@@ -86,8 +84,8 @@ def I_like(request):
     user = Get_user(request)
     if request.method == 'GET':
         if user:
-            house = House.objects.filter()
-            return render(request, 'cwd/adv.html', {'house':house})
+            house = Collect.objects.filter(user_id=user).house
+            return render(request, 'cwd/adv.html', {'house': house})
         else:
             return HttpResponseRedirect('/cwd/index/')
 
