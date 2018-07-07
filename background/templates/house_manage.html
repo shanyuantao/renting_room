@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block js %}
+<script type="text/javascript" src='{% static "scripts/jquery/jquery-1.7.1.js"%}'></script>
+<link href="{% static 'style/authority/basic_layout.css'%}" rel="stylesheet" type="text/css">
+<link href="{% static 'style/authority/common_style.css'%}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'scripts/authority/commonAll.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/fancybox/jquery.fancybox-1.3.4.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/fancybox/jquery.fancybox-1.3.4.pack.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'style/authority/jquery.fancybox-1.3.4.css' %}" media="screen">
+<script type="text/javascript" src="{% static 'scripts/artDialog/artDialog.js?skin=default'%}"></script>
+
+<script type="text/javascript">
+
+</script>
+<script language="JavaScript">
+function delete_confirm(e)
+{
+    if (event.srcElement.outerText == "删除")
+    {
+        event.returnValue = confirm("删除是不可恢复的，你确认要删除吗？");
+    }
+}
+</script>
+<style>
+	.alt td{ background:black !important;}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<form id="submitForm" name="submitForm" action="" method="post">
+{% csrf_token %}
+		<input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
+		<input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
+		<div id="container">
+			<div class="ui_content" style="margin-top: 0px;">
+				<div class="ui_text_indent">
+					<div id="box_border">
+						<div id="box_top">搜索</div>
+						<div id="box_center">
+							区域
+							<select name="fangyuanEntity.fyXqCode" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">
+                                <option value=""
+                                >--请选择--</option>
+                                {% for position in positions %}
+                                    <option value="6">{{ position.name }}</option>
+
+                                {% endfor %}
+
+                            </select>
+
+							租金
+							<select name="fangyuanEntity.fyDhCode" id="fyDh" class="ui_select01">
+                                <option value="">--请选择--</option>
+                                <option value="76">500元以下</option>
+                                <option value="76">500-1000元</option>
+                                <option value="76">1000-2000元</option>
+                                <option value="76">2000-3000元</option>
+                                <option value="76">3000-5000元</option>
+                                <option value="76">5000-8000元</option>
+                                <option value="76">8000元以上</option>
+                            </select>
+							面积
+							<select name="fangyuanEntity.fyHxCode" id="fyHx" class="ui_select01">
+                                <option value="">--请选择--</option>
+                                <option value="76">50平以下</option>
+                                <option value="76">50-70平</option>
+                                <option value="76">70-90平</option>
+                                <option value="76">90-110平</option>
+                                <option value="76">110-130平</option>
+                                <option value="76">130-150平</option>
+                                <option value="76">150-200平</option>
+                                <option value="76">200平以上</option>
+                            </select>
+							房型
+							<select name="fangyuanEntity.fyStatus" id="fyStatus" class="ui_select01">
+                                <option value="">--请选择--</option>
+                                {% for i in new_type %}
+                                    <option value="26">{{ i}}</option>
+
+                                {% endfor %}
+
+
+                            </select>
+
+						</div>
+						<div id="box_bottom">
+							<input type="button" value="查询" class="ui_input_btn01" onclick="search()" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui_content" style="margin-top: 0px;">
+				<div class="ui_tb">
+					<table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+						<tr>
+							<th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
+							</th>
+							<th>房屋编号</th>
+							<th>房屋标题</th>
+							<th>区域</th>
+							<th>范围</th>
+							<th>面积</th>
+							<th>户型</th>
+							<th>价格</th>
+                            <th>租赁方式</th>
+							<th>联系人/联系电话</th>
+                            <th>状态</th>
+							<th>操作</th>
+						</tr>
+                        {% for house in houses %}
+
+
+
+							<tr>
+								<td><input type="checkbox" name="IDCheck" value="14458579642011" class="acb" /></td>
+								<td>{{ house.house_id }}</td>
+								<td>{{ house.title }}</td>
+								<td>{{ house.area.name }}</td>
+								<td>{{ house.address }}</td>
+                                <td>{{ house.acreage }}</td>
+								<td>{{ house.type.type_name }}</td>
+								<td>{{ house.price }}</td>
+                                <td>{{ house.housedetail_set.first.lease }}</td>
+								<td>{{ house.user.nick_name }} <span>/</span> {{ house.user.phone }} </td>
+                                <td>{{ house.house_status }}</td>
+
+								<td>
+{#                                    /app/edit_house/{{ house.house_id }}/{{ the_page }}/#}
+									<a href="/app/edit_house/{{ house.house_id }}/{{ the_page }}/" class="edit">编辑</a>
+									<a href="/app/del_house/{{ house.house_id }}/{{ the_page }}/" onclick="delete_confirm()">删除</a>
+								</td>
+							</tr>
+                        {% endfor %}
+
+					</table>
+				</div>
+				<div class="ui_tb_h30">
+					<div class="ui_flt" style="height: 30px; line-height: 30px;">
+						共有
+						<span class="ui_txt_bold04">{{ all_record }}</span>
+						条记录，当前第
+						<span class="ui_txt_bold04">{{ the_page }}
+						/
+						{{ total_page }}</span>
+						页
+					</div>
+					<div class="ui_frt">
+						<!--    如果是第一页，则只显示下一页、尾页 -->
+
+                        <a href="/app/house_manage/1/"><input type="button" value="首页" class="ui_input_btn01"></a>
+
+                        {% if the_page > 1 %}
+                        <a href="/app/house_manage/{{ the_page|add:-1 }}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
+                        {% else %}
+                        <a href="/app/house_manage/{{ the_page}}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
+                        {% endif %}
+
+                        {% if the_page <= total_page %}
+                        <a href="/app/house_manage/{{ the_page|add:1 }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
+                        {% else %}
+                        <a href="/app/house_manage/{{ the_page }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
+                        {% endif %}
+
+
+                        <a href="/app/house_manage/{{ total_page }}/"><input type="button" value="尾页" class="ui_input_btn01"></a>
+
+
+
+						<!--     如果是最后一页，则只显示首页、上一页 -->
+                        <form >
+                            
+                            
+						转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" >页
+							 <input type="button" id="gotosearch" class="ui_input_btn01" value="跳转" onclick="search()">
+
+                             <input type="text" style="display: none">
+                             <input id="foo2" type="hidden" value="{{ total_page }}">
+                        </form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+{% endblock %}
+
+{% block foot %}
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    /**编辑   **/
+	    $("a.edit").fancybox({
+	    	'width' : 733,
+	        'height' : 530,
+	        'type' : 'iframe',
+	        'hideOnOverlayClick' : false,
+	        'showCloseButton' : true,
+	        'onClosed' : function() {
+	        	window.location.href = 'house_list.html';
+	        }
+	    });
+	});
+
+</script>
+{% endblock %}

@@ -1,0 +1,125 @@
+<!DOCTYPE>
+<html>
+{% load static %}
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台模板管理系统</title>
+<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% block extCSS %}
+
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+
+
+{% block js %}
+{% endblock %}
+
+</head>
+
+<body>
+
+<div class="top" style="background-color: #32323A"></div>
+<div id="header" style="background-color:#32323A">
+	<div class="logo">王富与贵后台管理系统</div>
+	<div class="navigation">
+		<ul>
+		 	<li>欢迎进入王富与贵后台管理系统!</li>
+			<li><span id="foo1"></span></li>
+			<li><a href="/app/update_pwd/">修改密码</a></li>
+			<li><a href="/app/adminlogout/">退出</a></li>
+		</ul>
+	</div>
+</div>
+<div id="content">
+	<div class="left_menu" >
+				<ul id="nav_dot">
+      <li>
+          <a href="/app/system/"><h4 class="M1" ><span></span>系统概况</h4></a>
+          <div class="list-item none">
+{#            <a href=''>系统概况1</a>#}
+{#            <a href=''>系统概况2</a>#}
+{#            <a href=''>系统概况3</a>#}
+{#            <a href=''>系统概况4</a>#}
+          </div>
+        </li>
+
+				<li >
+          <a href="/app/house_manage/1/"><h4 class="M4" ><span></span>房源管理</h4></a>
+          <div class="list-item none">
+{#            <a href=''>评论管理1</a>#}
+{#            <a href=''>评论管理2</a>#}
+{#            <a href=''>评论管理3</a>#}
+          </div>
+        </li>
+				<li>
+          <a href="/app/house_manage/"><h4 class="M5" ><span></span>调查问卷</h4></a>
+          <div class="list-item none">
+{#            <a href=''>调研问卷1</a>#}
+{#            <a href=''>调研问卷2</a>#}
+{#            <a href=''>调研问卷3</a>#}
+          </div>
+        </li>
+				<li>
+          <a href="/app/hello/"><h4 class="M6" ><span></span>统计报表</h4></a>
+          <div class="list-item none">
+{#            <a href=''>统计报表1</a>#}
+{#            <a href=''>统计报表2</a>#}
+{#            <a href=''>统计报表3</a>#}
+          </div>
+        </li>
+
+				<li>
+          <a href="/app/house_manage/"><h4 class="M7" ><span></span>内容管理</h4></a>
+          <div class="list-item none">
+{#            <a href=''>内容管理1</a>#}
+{#            <a href=''>内容管理2</a>#}
+{#            <a href=''>内容管理3</a>#}
+          </div>
+        </li>
+				<li>
+          <a href="/app/house_manage/"><h4 class="M8" ><span></span>系统管理</h4></a>
+          <div class="list-item none">
+{#            <a href=''>系统管理1</a>#}
+{#            <a href=''>系统管理2</a>#}
+{#            <a href=''>系统管理3</a>#}
+          </div>
+        </li>
+  </ul>
+		</div>
+		<div class="m-right">
+			<div class="right-nav">
+					<ul>
+							<li><img src="{% static 'images/home.png' %}"></li>
+{#								<li style="margin-left:25px;">您当前的位置：</li>#}
+{#								<li><a href="#">系统概况</a></li>#}
+{#								<li>></li>#}
+{#								<li><a href="#">最新公告</a></li>#}
+						</ul>
+			</div>
+			<div class="main">
+                {% block content %}
+
+                {% endblock %}
+			</div>
+		</div>
+</div>
+<div class="bottom"></div>
+<div id="footer"><p>Copyright©  2018 版权所有 成ICP备05019125号-10</p></div>
+<script>
+    $.ajaxSetup({
+   data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+                });
+
+</script>
+<script src="{% static 'js/backend.js' %}">
+</script>
+
+<script>navList(12);
+</script>
+{% block foot %}
+
+{% endblock %}
+</body>
+</html>

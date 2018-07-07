@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block extCSS %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12" style="padding-left: 10px">
+			<form method="post" >
+                {% csrf_token %}
+				<fieldset>
+					<legend>修改密码</legend>
+                    <p>
+						<span class="help-block">旧密码:</span>
+					</p>
+                        <input id='password' type="password" name="password"/>
+					<p>
+						<span class="help-block">新密码:</span>
+					</p>
+					<p>
+						<input id="password1" type="password" name="password1"/>
+					</p>
+					<p><span class="help-block">再次输入密码:</span></p>
+					<p>
+						<input id="password2" type="password" name="password2"/>
+					</p>
+                    <input value="提交" type="button" onclick="update_pwd()" class="btn"  style="width: 60px; height: 25px;">
+				</fieldset>
+			</form>
+
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
