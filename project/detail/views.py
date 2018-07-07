@@ -18,13 +18,4 @@ def detail(request, house_id):
             temp = [fac.facility_name for fac in house[0].facility_set.all()]
             data['fac'] = [(fac, bool(fac.facility_name in temp)) for fac in Facility.objects.all()]
 
-
-
-
-
-
-
-
-
-
         return render(request, 'detail.html', {'data': data})
