@@ -1,6 +1,7 @@
 i# maven ignore  
 django_env/ 
 project/.idea/
+background/.idea/
 .idea/
 myscrapy/.idea/
 *.jar  
