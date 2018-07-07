@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-<<<<<<< HEAD
+
     'detail'
-=======
-    'cwdapp'
->>>>>>> cwd
+
+    'cwdapp',
+    
+    'xym'
+
 ]
 
 MIDDLEWARE = [
