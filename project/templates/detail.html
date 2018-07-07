@@ -17,6 +17,45 @@
         }
     </style>
 
+    <script src="{% static 'js/fe.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
+
+{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/base/fe.js?_v=20180705162527790"></script>#}
+{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/common.js?_v=20180705162527790"></script>#}
+
+    <script>var path = 'https://s1.ljcdn.com/feroot/pc/asset?_v=20180705162527790'.split("?");require.config({baseUrl: path[0],paths: {'echarts' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/bar' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/line' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/pie' : '../../dep/echarts-1.4.1/build/echarts','echarts3' : '../../dep/echarts3/echarts3','common': 'common','jquery-ui': '../../dep/jquery-ui/jquery-ui.min','zeroclipboard': '../../dep/zeroclipboard-2.2.0/ZeroClipboard'},urlArgs:  path[1]});var feData = {"cityName": "北京","getFavHouseUrl":       "/api/gethousefav","setFavHouseUrl":       "/api/sethousefav","getLastSearch":        "/api/getlastsearch","getCommunityHistory":  "/api/getcommunityhistory","verifyHouse":          "/api/verifyHouse","getUser":              "/api/getUser","verifyCode":           "/verifycode/getVerifyCode","complaint":            "/api/complaint","getDecoration":        "/api/getDecoration","trendData" :           "/site/getpicinfo"}</script>
+    <script>
+
+  require(['detail/zufang'],function(init){
+    init({
+      isLoged:0,
+      area:'93平米',
+      totalPrice:'1700',
+      houseId:'106101331053',
+      resblockId:'1611061594169',
+      resblockName:'天邑宏御花园御苑',
+      isRemove:0,
+      defaultImg:'https://s1.ljcdn.com/feroot/pc/asset/img/new-version/default_block.png?_v=20180705162527790',
+      defaultBrokerIcon:'https://s1.ljcdn.com/feroot/pc/asset/img/jingjiren/noimg.jpg?_v=20180705162527790',
+      resblockPosition:'103.95459,30.774679',
+      cityId:'510100'
+    });
+  });
+  require(['common/backtopV3'], function (main) {
+    main({
+      ucid: '',
+      uuid: '53299cc7-4eb5-4d77-8ad2-cc408d7879b4',
+      loadingImg: 'https://s1.ljcdn.com/feroot/pc/asset/ershoufang/sellDetail/img/loading.gif?_v=20180705162527790',
+      qrImg: '//ajax.api.lianjia.com/qr/getDownloadQr'
+    });
+  });
+
+  </script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/detail/zufang.js?_v=20180705162527790"></script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/backtopV3.js?_v=20180705162527790"></script>
+    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/suggestion.js?_v=20180705162527790"></script>
+
+
 
     </head>
     <body>
@@ -39,6 +78,7 @@
                 </div>
                 <div class="thumbnail">
                     <ul id="img_ul">
+                    <ul>
                         {% for img_url in data.house_img%}
                             <li data-src=""  class="selected">
                                 <img src="{{ img_url.url }}" alt="">
@@ -46,6 +86,7 @@
                         {% endfor %}
                     </ul>
                     <div class="pre">&lt;</div>
+                    <div class="pre disable">&lt;</div>
                     <div class="next">&gt;</div>
                 </div>
             </div>

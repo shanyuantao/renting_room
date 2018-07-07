@@ -7,5 +7,6 @@ urlpatterns = [
     url('^change_pas/', views.Change_password),
     url('^like/', views.I_like),
     url('^ture/', views.Ture_name),
+    url('^myhouse/', views.My_house),
     url('^l/', views.login),
 ]
