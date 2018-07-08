@@ -12,6 +12,9 @@ urlpatterns = [
     url('^house_manage/(\d+)/', views.house_manage),
     url('^system/', views.system),
     url('^del_house/(\d+)/(\d+)/',views.del_house),
-    url('^edit_house/(\d+)/(\d+)/', views.edit_house)
+    url('^del_house1/(\d+)/',views.del_house1),
+    url('^edit_house/(\d+)/(\d+)/', views.edit_house),
+    # url('^edit_house1/(\d+)/(\d+)/', views.edit_house1),
+    url('^search/(\d+)/(\w+)/(\w+)/(.+)/(\d+)/', views.search)
 
 ]

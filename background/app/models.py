@@ -51,6 +51,7 @@ class House(models.Model):
     index_img_url = models.CharField(max_length=1024, blank=True, null=True)
     house_status = models.CharField(max_length=10, blank=True,
                                    null=True)
+    col_user = models.ManyToManyField('User', through='Collect', related_name='col_house')
 
     class Meta:
         managed = False

@@ -133,12 +133,15 @@
 					</td>
 				</tr>
                 <br>
+            <div style="padding-left:5px"><span>注意:</span> <span style="color: chartreuse"> 面积和价格两个参数 <span style="color: red">必填整数</span> 类型, 否则提交会失败&nbsp;</span></div>
                 <br>
 				</tr>
-					<td>&nbsp;</td>
+					<td></td>
 					<td class="ui_text_lt">
 						&nbsp;<input id="submitbutton" type="submit" value="提交" class="ui_input_btn01" onclick="myclose()"/>
-{#						&nbsp;<a href="/app/house_manage/{{ the_page }}/"><input id="cancelbutton" type="button" value="取消" class="ui_input_btn01"></a>#}
+
+
+						&nbsp;<input id="cancelbutton" type="button" value="取消" class="ui_input_btn01" onclick="cancel()">
 					</td>
 				</tr>
 			</table>
@@ -148,7 +151,16 @@
 </form>
 <script>
 {#    下面的函数为提交表单的同时关闭子窗口fancybox #}
-    function myclose(){
+function myclose(){
+    parent.showMessage();
+    parent.$.fancybox.close();
+    {#y = m.split('search');  --> 发现了一个问题, 在js这边切割以后不会执行跳转刷新操作了 #}
+
+
+    /* 因为子页面已经关闭, 所以不要在这个函数里面花太多的功夫去写函数, 可能会关闭了函数没执行完, 最好写一个方便去调用父类的函数即可 */
+
+}
+function cancel(){
     parent.$.fancybox.close();
 }
 </script>

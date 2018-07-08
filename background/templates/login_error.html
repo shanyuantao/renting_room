@@ -1,0 +1,180 @@
+
+<!-- saved from url=(0049)http://stu.1000phone.net/student.php/Public/login -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {% load static %}
+        <title>后台系统</title>
+        <meta name="description" content="500 Error Page">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static '/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/ace.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ace-rtl.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ace-skins.min.css' %}">
+        <script src="{% static 'css/ace-extra.min.js' %}"></script><style type="text/css" abt="234"></style>
+    <script>//console.log('a')
+</script><script>//remove 17173 video ad
+// doAdblock();
+// function doAdblock(){
+//     (function() {
+//         function A() {}
+//         A.prototype = {
+//             rules: {
+//                 '17173_in':{
+//                     'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+//                     'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+//                 },
+//                 '17173_out':{
+//                     'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+//                     'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+//                 },
+//                 '17173_live':{
+//                     'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+//                     'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+//                 },
+//                 '17173_live_out':{
+//                     'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+//                     'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+//                 }
+//             },
+//             _done: null,
+//             get done() {
+//                 if(!this._done) {
+//                     this._done = new Array();
+//                 }
+//                 return this._done;
+//             },
+//             addAnimations: function() {
+//                 var style = document.createElement('style');
+//                 style.type = 'text/css';
+//                 style.innerHTML = 'object,embed{\
+//                 -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+//                 -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+//                 -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+//                 animation-duration:.001s;animation-name:playerInserted;}\
+//                 @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+//                 @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+//                 @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+//                 @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+//                 document.getElementsByTagName('head')[0].appendChild(style);
+//             },
+//             animationsHandler: function(e) {
+//                 if(e.animationName === 'playerInserted') {
+//                     this.replace(e.target);
+//                 }
+//             },
+//             replace: function(elem) {
+//                 if(this.done.indexOf(elem) != -1) return;
+//                 this.done.push(elem);
+//                 var player = elem.data || elem.src;
+//                 if(!player) return;
+//                 var i, find, replace = false;
+//                 for(i in this.rules) {
+//                     find = this.rules[i]['find'];
+//                     if(find.test(player)) {
+//                         replace = this.rules[i]['replace'];
+//                         if('function' === typeof this.rules[i]['preHandle']) {
+//                             this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+//                         }else{
+//                             this.reallyReplace.bind(this, elem, find, replace)();
+//                         }
+//                         break;
+//                     }
+//                 }
+//             },
+//             reallyReplace: function(elem, find, replace) {
+//                 elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+//                 var b = elem.querySelector("param[name='movie']");
+//                 this.reloadPlugin(elem);
+//             },
+//             reloadPlugin: function(elem) {
+//                 var nextSibling = elem.nextSibling;
+//                 var parentNode = elem.parentNode;
+//                 parentNode.removeChild(elem);
+//                 var newElem = elem.cloneNode(true);
+//                 this.done.push(newElem);
+//                 if(nextSibling) {
+//                     parentNode.insertBefore(newElem, nextSibling);
+//                 } else {
+//                     parentNode.appendChild(newElem);
+//                 }
+//             },
+//             init: function() {
+//                 var handler = this.animationsHandler.bind(this);
+//                 document.body.addEventListener('webkitAnimationStart', handler, false);
+//                 document.body.addEventListener('msAnimationStart', handler, false);
+//                 document.body.addEventListener('oAnimationStart', handler, false);
+//                 document.body.addEventListener('animationstart', handler, false);
+//                 this.addAnimations();
+//             }
+//         };
+//         new A().init();
+//     })();
+// }
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+    <div class="page-content"><div class="row"><div class="col-xs-12">
+    <!-- PAGE CONTENT BEGINS -->
+    <div class="error-container">
+        <div class="well center">
+            <h1 class="grey lighter smaller"> 
+                <!-- <a href="JavaScript:void(0);" class="btn btn-app btn-danger"><i class="icon-ban-circle bigger-230"></i>ErrorInfo</a> -->
+                <img src="{% static '/images/error.png' %}" alt="">
+
+            </h1>
+            <h3 class="lighter smaller">
+                </h3><h1 class="grey lighter smaller" style="margin-bottom:200px">{{ error }}</h1>
+                We'll deal with it as soon as possible.<i class="icon-wrench icon-animated-wrench bigger-125"></i>
+            
+            <hr>
+            <div class="space"></div>
+            <div class="center">
+                <a href="
+                /app/adminlogin/" class="btn btn-primary"><i class="icon-arrow-left"></i>GO BACK</a>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col --></div><!-- /.row --></div>
+    
+</body></html>

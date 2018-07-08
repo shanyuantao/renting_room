@@ -15,11 +15,27 @@
 </script>
 <script language="JavaScript">
 /* 弹框确认是否删除数据  */
-function delete_confirm(e)
+function delete_confirm(house_id)
 {
     if (event.srcElement.outerText == "删除")
     {
+        house_id = String(house_id);
+        {# 注意这里的confirm是一个阻塞的函数, 所以我可以在这下面做一些事情 #}
         event.returnValue = confirm("删除是不可恢复的，你确认要删除吗？");
+        $.ajax({
+            type: 'GET',
+            url: '/app/del_house1/'+ house_id +'/',
+            dataTYpe: 'json',
+            success: function (data) {
+                alert(data.msg);
+                window.location.reload()
+            },
+            error:function (data) {
+                alert('删除失败');
+                window.location.reload()
+            }
+        })
+
     }
 }
 
@@ -27,6 +43,8 @@ function select_search(){
     area_id = $('#fyXq').val();
     alert(area_id)
 }
+
+
 </script>
 <style>
 	.alt td{ background:black !important;}
@@ -92,7 +110,8 @@ function select_search(){
                             </select>
 						</div>
 						<div id="box_bottom">
-							<input type="button" value="查询" class="ui_input_btn01" onclick="select_search()">
+                            <a href="/app/house_manage/1/"><input type="button" value="全部查询" class="ui_input_btn01"></a>
+							<input type="button" value="条件查询" class="ui_input_btn01" onclick="select_search()">
 						</div>
 					</div>
 				</div>
@@ -137,7 +156,7 @@ function select_search(){
 								<td>
 {#                                    /app/edit_house/{{ house.house_id }}/{{ the_page }}/#}
 									<a href="/app/edit_house/{{ house.house_id }}/{{ the_page }}/" class="edit">编辑</a>
-									<a href="/app/del_house/{{ house.house_id }}/{{ the_page }}/" onclick="delete_confirm()">删除</a>
+									<a id="to_reload" href="#" onclick="delete_confirm({{ house.house_id }})">删除</a>
 								</td>
 							</tr>
                         {% endfor %}
@@ -157,22 +176,22 @@ function select_search(){
 					<div class="ui_frt">
 						<!--    如果是第一页，则只显示下一页、尾页 -->
 
-                        <a href="/app/house_manage/1/"><input type="button" value="首页" class="ui_input_btn01"></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/1/"><input type="button" value="首页" class="ui_input_btn01"></a>
 
                         {% if the_page > 1 %}
-                        <a href="/app/house_manage/{{ the_page|add:-1 }}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/{{ the_page|add:-1 }}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
                         {% else %}
-                        <a href="/app/house_manage/{{ the_page}}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/{{ the_page}}/"><input id='foo1' type="button" value="上一页" class="ui_input_btn01" /></a>
                         {% endif %}
 
                         {% if the_page < total_page %}
-                        <a href="/app/house_manage/{{ the_page|add:1 }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/{{ the_page|add:1 }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
                         {% else %}
-                        <a href="/app/house_manage/{{ the_page }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/{{ the_page }}/"><input type="button" value="下一页" class="ui_input_btn01"></a>
                         {% endif %}
 
 
-                        <a href="/app/house_manage/{{ total_page }}/"><input type="button" value="尾页" class="ui_input_btn01"></a>
+                        <a href="/app/search/{{ area_id }}/{{ price_range }}/{{ acreage_range }}/{{ house_type }}/{{ total_page }}/"><input type="button" value="尾页" class="ui_input_btn01"></a>
 
 
 
