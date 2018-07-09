@@ -1,16 +1,10 @@
-import os
-import re
-
 from PIL import Image
 from django.contrib.auth.hashers import check_password, make_password
-from django.core.files.base import ContentFile
 
-from project import settings
-from django.core.files.storage import default_storage
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from app.models import House, User, Collect
-from app import jsonresponse
+from app.models import House, User, Collect, HouseDetail, HouseFacility, HouseImg
+
 
 
 # 写入取session方法
@@ -91,6 +85,10 @@ def I_like(request):
             return render(request, 'cwd/adv.html', {'house': house, 'user': user})
         else:
             return HttpResponseRedirect('/cwd/index/')
+    if request.method == 'POST':
+        house_id = request.POST.get('id')
+        House.objects.filter(house_id=house_id).delete()
+        return HttpResponseRedirect('/cwd/like/')
 
 
 # 实名认证
@@ -128,6 +126,13 @@ def My_house(request):
         if request.method == 'GET':
             house = House.objects.filter(user_id=user.user_id)
             return render(request, 'cwd/my_house.html', {'house': house, 'user': user})
+        if request.method == 'POST':
+            houses = request.POST.get('h')
+            HouseDetail.objects.filter(house_id=houses).delete()
+            HouseFacility.objects.filter(house_id=houses).delete()
+            HouseImg.objects.filter(house_id=houses).delete()
+            House.objects.filter(house_id=houses).delete()
+            return HttpResponseRedirect('/cwd/myself/')
 
 
 # 用户登录
@@ -146,8 +151,8 @@ def login(request):
             users = User.objects.filter(account=account)  # 获取的是列表类型
 
             # 检查密码
-            if check_password(password, users[0].password):
-
+            # if check_password(password, users[0].password):
+            if password == users[0].password:
                 # 将登录的账户名传递给session对象
 
                 request.session['account'] = account

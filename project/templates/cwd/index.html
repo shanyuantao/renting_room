@@ -2,16 +2,7 @@
 {% load static %}
 
 
-{% block div %}
-    <div class="zxcf_nav_r fr">
-    {% if user.avatar %}
-        <a href="/cwd/myself/"><img src="{{ user.avatar }}" alt="" style="height: 77px;width: 77px"></a>
-        <span>我的账户</span>
-    {% else %}
-        <a href="/cwd/myself/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
-        <span>我的账户</span>
-    {% endif %}
-{% endblock %}
+
 {% block content %}
 
         <!-- end  -->
@@ -21,8 +12,22 @@
                     <strong>中兴租房</strong>
                     <p>累计成交：<strong>56789次</strong></p>
                     <p>运营时间：<strong>123天</strong></p>
-                    <a href="/cwd/l/" class="btn btn1">立即登录</a><br>
-                    <a href="#" class="btn btn2">立即注册</a>
+                    {#               如果用户未登录#}
+               {% if request.session.account == null %}
+                    <a href="{% url 'kaiapp:login' %}" class="btn btn1">立即登录</a><br>
+                    <a href="{% url 'kaiapp:register' %}" class="btn btn2">立即注册</a>
+
+{#               如果用户已登录，且存在nick_name#}
+               {% elif request.session.account and one_data.nick_name %}
+                   <a href="#" class="btn btn1">{{ one_data.nick_name }}</a><br>
+                   <a href="{% url 'kaiapp:logout' %}" class="btn btn2">安全退出</a>
+
+{#                如果用户已登录，且未修改nick_name#}
+               {% else %}
+                   <a href="#" class="btn btn1">{{ request.session.account }}</a><br>
+                   <a href="{% url 'kaiapp:logout' %}" class="btn btn2">安全退出</a>
+
+               {% endif %}
                 </div>
             </div>
         </div>
@@ -74,7 +79,7 @@
         </div>
         <!-- end block3 -->
         <div class="zscf_block4 mt30">
-            <img src="images/block4_adver.png">
+            <img src="{% static 'images/timg.jpg' %}">
         </div>
         <!-- end block4 -->
 
