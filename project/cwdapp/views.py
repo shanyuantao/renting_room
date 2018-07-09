@@ -12,12 +12,14 @@ from app.models import House, User, Collect
 from app import jsonresponse
 
 
+
 # 写入取session方法
 def Get_user(a):
     user = a.session.get('account')
     user_id = User.objects.filter(account=user).first()
+    print('user_id')
+    print(user_id)
     return user_id
-
 
 # 首页
 def Index(request):
@@ -125,7 +127,8 @@ def My_house(request):
     if user:
         if request.method == 'GET':
             house = House.objects.filter(user_id=user.user_id)
-            return render(request, 'cwd/my_house.html', {'house': house, 'user': user})
+            # return render(request, 'cwd/my_house.html', {'house': house, 'user': user})
+            return render(request, 'xym/showHouse.html', {'house':house, 'user':user})
 
 
 # 用户登录

@@ -1,0 +1,79 @@
+{% extends 'basr_my_min.html' %}
+{% load static %}
+{% block CSS %}
+    <script type="text/javascript">
+        $(function () {
+            $(".leftnav h2").click(function () {
+                $(this).next().slideToggle(200);
+                $(this).toggleClass("on");
+            })
+            $(".leftnav ul li a").click(function () {
+                $("#a_leader_txt").text($(this).text());
+                $(".leftnav ul li a").removeClass("on");
+                $(this).addClass("on");
+            })
+        });
+    </script>
+{% endblock %}
+{% block content %}
+
+
+    <div class="admin">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 已发布的房源</strong></div>
+            <div class="padding border-bottom">
+            </div>
+            <table class="table table-hover text-center">
+                {% if user %}
+                    <tr>
+                        <th width="10%">房屋ID</th>
+                        <th width="10%">图片</th>
+                        <th width="20%">标题</th>
+                        <th width="10%">价格</th>
+                        <th width="10%">区域</th>
+                        <th width="10%">地址</th>
+{#                        <th width="10%">房屋设施</th>#}
+                        <th width="10%">房屋状态</th>
+
+                        <th width="10%">操作</th>
+                    </tr>
+                    {% for h in house %}
+
+
+                        <tr>
+                            <td>{{ h.house_id }}</td>
+                            <td><img src="{{ h.index_img_url }}" alt="" width="120" height="50"/></td>
+                            <td>{{ h.title }}</td>
+                            <td>{{ h.price }}</td>
+                            <td>{{ h.area }}</td>
+                            <td>{{ h.address }}</td>
+{#                            <td>{{ h.housefacility_set }}</td>#}
+                            <td>{{ h.house_status }}</td>
+
+                            <td>
+                                <div class="button-group">
+                                    <a class="button border-red" href="javascript:void(0)"
+                                       onclick="return del({{ h.house_id }})"><span
+                                            class="icon-trash-o"></span> 删除</a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+        <script type="text/javascript">
+            function del(id) {
+                var r = confirm("您确定要删除吗?")
+                if (r == true) {
+                    alert("You pressed OK!");
+                    $.post( "/xym/removenewhouse/", { house_id: id, csrfmiddlewaretoken: '{{ csrf_token }}' } ); // send data to server django: js -> urls.py -> views.py
+                }
+                else {
+                    alert("You pressed Cancel!");
+                }
+            }
+        </script>
+    </div>
+{% endblock %}

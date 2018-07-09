@@ -1,19 +1,17 @@
 <!DOCTYPE html>
+{% extends 'basr_my_min.html' %}
+{% load static %}
+{% block CSS %}
+{% endblock %}
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>发布新房源</title>
-    <link href="/static/xym/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/xym/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/static/xym/css/reset.css" rel="stylesheet">
-    <link href="/static/xym/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="/static/xym/css/main.css" rel="stylesheet">
-    <link href="/static/xym/css/newhouse.css" rel="stylesheet">
+
 </head>
 <body>
-
+{% block content %}
 <div class="container">
     <div class="top-bar">
         <div class="nav-bar">
@@ -23,7 +21,7 @@
     </div>
     <div class="houses-con">
         <ul class="houses-list">
-            <form id="form-house-info" method="POST">
+            <form id="form-house-info" method="POST" enctype="multipart/form-data" >
                 {% csrf_token %}
                 <li>
                     <div class="house-title">
@@ -32,17 +30,17 @@
                     <div class="house-content">
                         <div class="form-group">
                             <label for="house-title">房屋标题:</label><br/>
-                            <input type="text" class="form-control-a" name="title" id="house-title" required>
+                            <input value="0" type="text" class="form-control-a" name="title" id="house-title" required>
                         </div>
                         <div class="form-group">
                             <label for="house-price">价格:(单位:元/月)</label><br/>
-                            <input type="text" class="form-control-a" name="price" id="price" required>
+                            <input value="0" type="text" class="form-control-a" name="price" id="price" required>
                         </div>
                         <div class="form-group">
                             <label for="pay-way">支付方式:</label>
                             <div class="checkbox">
                                 <label>
-                                    <input type="radio" name="pay_way" value="现金"/>现金&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <input type="radio" name="pay_way" value="现金" checked />现金&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     <input type="radio" name="pay_way" value="微信"/>微信&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     <input type="radio" name="pay_way" value="支付宝"/>支付宝&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
@@ -54,7 +52,7 @@
                                 <label for="lead-way">租赁方式:<br/>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="radio" name="lease" value="1"/>整租&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                            <input type="radio" name="lease" value="1" checked/>整租&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                             <input type="radio" name="lease" value="1"/>合租&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
 
@@ -79,7 +77,7 @@
 
                         <div class="form-group">
                             <label for="house-address">详细地址:</label><br/>
-                            <input type="text" class="form-control-a" name="address" id="house-address" required>
+                            <input value="0" type="text" class="form-control-a" name="address" id="house-address" required>
                         </div>
                     </div>
                 </li>
@@ -91,7 +89,7 @@
 
                         <div class="form-group">
                             <label for="house-acreage">房屋面积:</label><br/>
-                            <input type="text" class="form-control-a" name="acreage" id="house-acreage" required>
+                            <input value="0" type="text" class="form-control-a" name="acreage" id="house-acreage" required>
                         </div>
                         <div class="form-group">
                             <label for="house-unit">户型描述:</label><br/>
@@ -102,25 +100,35 @@
                             </select>
                             <div class="form-group">
                                 <label for="house-title">楼层:</label><br/>
-                                <input type="text" class="form-control-a" name="floor" id="house-title" required>
+                                <input value="0" type="text" class="form-control-a" name="floor" id="house-title" required>
                             </div>
                             <div class="form-group">
                                 <label for="house-title">小区:</label><br/>
-                                <input type="text" class="form-control-a" name="community" id="house-title" required>
+                                <input value="0" type="text" class="form-control-a" name="community" id="house-title" required>
                             </div>
                             <div class="form-group">
                                 <label for="house-title">朝向:</label><br/>
-                                <input type="text" class="form-control-a" name="house_head" id="house-title" required>
+                                <input value="0" type="text" class="form-control-a" name="house_head" id="house-title" required>
                             </div>
                             <div class="form-group">
                                 <label for="house-title">周围设施:</label><br/>
-                                <input type="text" class="form-control-a" name="surround_facility" id="house-title"
+                                <input value="0" type="text" class="form-control-a" name="surround_facility" id="house-title"
                                        required>
                             </div>
                             <div class="form-group">
                                 <label for="house-title">交通:</label><br/>
-                                <input type="text" class="form-control-a" name="transportation" id="house-title"
+                                <input value="0" type="text" class="form-control-a" name="transportation" id="house-title"
                                        required>
+                            </div>
+                             <label for="house_type">房屋状态:</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="radio" name="house_statuss" value="已出租" checked/>已出租&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <input type="radio" name="house_statuss" value="目前闲置"/>闲置&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <input type="radio" name="house_statuss" value="其他"/>其他&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                                </label>
+
                             </div>
                         </div>
                     </div>
@@ -133,22 +141,18 @@
                         <ul class="house-facility-list clearfix">
                             <div class="checkbox">
                                 {% for fname in facility_name %}
-                                        <label>
-                                            <input type="checkbox" name="facility_name" value="{{ fname.facility_id }}"/>
+                                    <label>
+                                        <input type="checkbox" name="facilitys" value="{{ fname.facility_id }}"/>
 
-                                            {{ fname.facility_name }}
-                                        </label>
+                                        {{ fname.facility_name }}
+                                    </label>
 
                                 {% endfor %}
                             </div>
                         </ul>
                     </div>
                 </li>
-                <input href="picture.html" type="submit" class="btn btn-success btn-commit" value="发布房源信息">
-                <div class="error-msg text-center"><i class="fa fa-exclamation-circle"></i>请将全部信息填写完整后再提交</div>
-            </form>
-            <form id="form-house-image" action="/xym/addnewhouse/" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+
                 <input type="hidden" name="house_id" id="house-id" value="">
                 <li>
                     <div class="house-title">
@@ -162,12 +166,18 @@
                             <label for="house-image">选择图片</label>
                             <input type="file" name="house_image" id="house-image">
                         </div>
-                        <input type="submit" class="btn btn-success" value="上传">
+                        <!-- <input type="submit" class="btn btn-success" value="上传">-->
                     </div>
                 </li>
+                <input  onclick="location.href = '/xym/success';" type="submit" class="btn btn-success btn-commit" value="发布房源信息">
+                <div class="error-msg text-center"><i class="fa fa-exclamation-circle"></i>请将全部信息填写完整后再提交</div>
+            <!-- </form>
+            <form id="form-house-image" action="/xym/addnewhouse/" method="post" enctype="multipart/form-data"> -->
+
             </form>
         </ul>
     </div>
+{% endblock %}
     <div class="popup_con">
         <div class="popup">
             <p><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></p>
@@ -179,11 +189,17 @@
     </div>
 </div>
 
-<script src="/static/xym/js/jquery.min.js"></script>
-<script src="/static/xym/js/jquery.form.min.js"></script>
-<script src="/static/xym/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/xym/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="/static/xym/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="/static/xym/js/ihome/newhouse.js"></script>
+
 </body>
 </html>
+{% block foot %}
+
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/all.js' %}"></script>
+<script type="text/javascript" src="/static/xym/js/ihome/newhouse.js"></script>
+{% block JS %}
+
+{% endblock %}
+

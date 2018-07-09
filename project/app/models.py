@@ -18,6 +18,9 @@ class Area(models.Model):
         managed = False
         db_table = 'area'
 
+    def __str__(self):
+        return self.name
+
 
 class Collect(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
@@ -27,6 +30,15 @@ class Collect(models.Model):
     class Meta:
         managed = False
         db_table = 'collect'
+
+# class Collect(models.Model):
+#     user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+#     house = models.ForeignKey('House', models.DO_NOTHING)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'collect'
+#         unique_together = (('user', 'house'),)
 
 
 class Count(models.Model):
@@ -77,6 +89,15 @@ class HouseFacility(models.Model):
     class Meta:
         managed = False
         db_table = 'house_facility'
+# class HouseFacility(models.Model):
+#     facility = models.ForeignKey(Facility, models.DO_NOTHING, primary_key=True)
+#     house = models.ForeignKey(House, models.DO_NOTHING)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'house_facility'
+#         unique_together = (('facility', 'house'),)
+
 
 
 class HouseDetail(models.Model):
@@ -112,6 +133,9 @@ class HouseType(models.Model):
     class Meta:
         managed = False
         db_table = 'house_type'
+
+    def __str__(self):
+        return self.type_name
 
 
 class Role(models.Model):
