@@ -87,7 +87,7 @@ def index(request):
         # latest_data = House.objects.last()
 
         name = request.session.get('account')  # 获取登录的账户名
-        one_data = User.objects.get(account=name)  # 获取账户对应的一整条数据库存储数据
+        one_data = User.objects.get(account=name) if name else ''  # 获取账户对应的一整条数据库存储数据
         data = {
             'latest_data': latest_data,
             'one_data': one_data

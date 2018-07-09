@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="referrer" content="no-referrer">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    {% block CSS %}
+
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block foot %}
+
+{% endblock %}
+
+
+<script type="text/javascript" src="{% static 'js/jquery-1.7.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/all.js' %}"></script>
+{% block JS %}
+
+{% endblock %}
+
+</body>
+</html>
