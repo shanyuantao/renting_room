@@ -18,10 +18,10 @@
 {% block div %}
     <div class="zxcf_nav_r fr">
     {% if user.avatar %}
-        <a href="/cwd/myself/"><img src="{{ user.avatar }}" alt="" style="height: 77px;width: 77px"></a>
+        <a href="/cwd/myhouse/"><img src="{{ user.avatar }}" id="my_img" alt=""></a>
         <span>我的账户</span>
     {% else %}
-        <a href="/cwd/myself/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
+        <a href="/cwd/myhouse/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
         <span>我的账户</span>
     {% endif %}
 {% endblock %}

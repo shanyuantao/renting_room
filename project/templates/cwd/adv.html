@@ -18,10 +18,10 @@
 {% block div %}
     <div class="zxcf_nav_r fr">
     {% if user.avatar %}
-        <a href="/cwd/myself/"><img src="{{ user.avatar }}" alt="" style="height: 77px;width: 77px"></a>
+        <a href="/cwd/myhouse/"><img src="{{ user.avatar }}" id="my_img" alt=""></a>
         <span>我的账户</span>
     {% else %}
-        <a href="/cwd/myself/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
+        <a href="/cwd/myhouse/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
         <span>我的账户</span>
     {% endif %}
 {% endblock %}
@@ -54,7 +54,7 @@
                             <td>
                                 <div class="button-group">
                                     <a class="button border-red" href="javascript:void(0)"
-                                       onclick="return del(1,0)"><span
+                                       onclick="return del({{ h.house_id }})"><span
                                             class="icon-trash-o"></span> 删除</a>
 
                                 </div>
@@ -65,10 +65,11 @@
             </table>
         </div>
         <script type="text/javascript">
-            function del(id, mid) {
+            function del(id) {
                 var r = confirm("您确定要删除吗?")
                 if (r == id) {
                     alert("You pressed OK!");
+                    $.post('/cwd/like/',value=id)
                 }
                 else {
                     alert("You pressed Cancel!");
