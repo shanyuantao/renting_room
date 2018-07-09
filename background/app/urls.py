@@ -5,6 +5,7 @@ from app import views
 
 urlpatterns = [
     url('^hello/', views.hello),
+    url('^hello1/', views.hello1),
     url('^adminlogin/', views.adminlogin),
     url('^adminlogout/', views.adminlogout),
     url('^refresh/', views.refresh),
@@ -15,6 +16,11 @@ urlpatterns = [
     url('^del_house1/(\d+)/',views.del_house1),
     url('^edit_house/(\d+)/(\d+)/', views.edit_house),
     # url('^edit_house1/(\d+)/(\d+)/', views.edit_house1),
-    url('^search/(\d+)/(\w+)/(\w+)/(.+)/(\d+)/', views.search)
+    url('^search/(\d+)/(\w+)/(\w+)/(.+)/(\d+)/', views.search),
+    url('^set_avatar/', views.set_avatar),
+    url('^manage_account/(\d+)/(.*)/', views.manage_account),
+    url('^edit_account/(\d+)/', views.edit_account),
+    url('^forbidden_account/(\d+)/(.*)/', views.forbidden_account),
+    url('^save_account/(\d+)/(.*)/', views.save_account)
 
 ]

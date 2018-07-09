@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<img src="{% static 'form_title.png' %}" alt="" style="float: left;">
+
+{# 注意: 上传图片必须改变enctype #}
+{# application/x-www-form-urlencoded: 这是一种标准的编码格式, 窗体数据被编码为名称/值对 #}
+{# multipart/form-data: 窗体数据被编码为一条消息, 页上的每个控件对应消息的一个部分, 上传附件用   #}
+{# text/plain: 窗体数据以纯文本形式进行编码, 其中不含任何控件或者格式字符 #}
+<form enctype="multipart/form-data" action="/app/set_avatar/" method="post">
+{% csrf_token %}
+<li><div style="width: 700px;clear: both; padding-left: 80px;padding-top: 30px;background-color: white;">
+    <input id="set_avatar" name="set_avatar" type="file" style="float: left;"> <img id="avatar" src="{{ user.avatar.url }}" alt="" width="100" height="100" style="padding-left: 250px">
+</div></li>
+<li>
+    <div style="width: 700px;height: 150px; background-color: white;clear: both; padding-left: 80px;padding-top: 30px">
+     <input id="to_show" type="submit" disabled="disabled" value="保存图片" style="width: 125px; height: 35px">
+     </div>
+</li>
+</form>
+
+
+<script>
+$('#set_avatar').change(function (event) {
+    files = event.target.files;
+    file = files[0];
+    URL = window.URL || window.webkitURL;
+    imgURL = URL.createObjectURL(file);
+    $('#avatar').attr('src', imgURL);
+    $('#to_show').attr('disabled', false)
+})
+
+
+/*
+$(document).ready(function () {
+
+})
+*/
+</script>
+{% endblock %}
+	

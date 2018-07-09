@@ -1,4 +1,3 @@
 
-s = '0'
-if s:
-    print(1)
+s = '0平'
+print(s.split('平米'))

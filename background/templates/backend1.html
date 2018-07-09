@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extCSS %}
+{
+{% endblock %}
+
+{% block js %}
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <script src="{% static 'js/echarts.common.min.js' %}"></script>
+
+{% endblock %}
+
+
+{% block content %}
+<div style="font-size: 24px; ">各个价格区间的房源数量:
+<div id="main1" style="width: 500px;height:400px;padding-left: 300px"></div>
+</div>
+    <input id="price_range_list" type="hidden" value="{{ price_range_list }}">
+
+{% endblock %}
+
+{% block foot %}
+
+<script>
+var myChart = echarts.init(document.getElementById('main1'));
+price_range_list = $('#price_range_list').val();
+function drawPie() {
+     myChart.setOption({
+        series : [
+            {
+                name: '价格区间房源',
+                type: 'pie',
+                roseType: 'angle',
+                radius: '60%',
+                data:eval(price_range_list)
+            }
+        ]
+    })
+}
+drawPie()
+</script>
+{% endblock %}
