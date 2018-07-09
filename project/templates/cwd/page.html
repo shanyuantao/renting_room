@@ -1,74 +1,79 @@
 {% extends 'basr_my_min.html' %}
 {% load static %}
 {% block CSS %}
-<script type="text/javascript">
-    $(function () {
-        $(".leftnav h2").click(function () {
-            $(this).next().slideToggle(200);
-            $(this).toggleClass("on");
-        })
-        $(".leftnav ul li a").click(function () {
-            $("#a_leader_txt").text($(this).text());
-            $(".leftnav ul li a").removeClass("on");
-            $(this).addClass("on");
-        })
-    });
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $(".leftnav h2").click(function () {
+                $(this).next().slideToggle(200);
+                $(this).toggleClass("on");
+            })
+            $(".leftnav ul li a").click(function () {
+                $("#a_leader_txt").text($(this).text());
+                $(".leftnav ul li a").removeClass("on");
+                $(this).addClass("on");
+            })
+        });
+    </script>
 {% endblock %}
+{% block div %}
+    <div class="zxcf_nav_r fr">
+    {% if user.avatar %}
+        <a href="/cwd/myself/"><img src="{{ user.avatar }}" alt="" style="height: 77px;width: 77px"></a>
+        <span>我的账户</span>
+    {% else %}
+        <a href="/cwd/myself/"><img src="{% static 'images/zxcf_perinfo.png' %}" alt=""></a>
+        <span>我的账户</span>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
 
-<div class="admin">
-    <div class="panel admin-panel">
-        {% if user.nick_name %}
-            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.nick_name }}
-            </strong><img src="{{ user.avatar }}" style="width: 100px;height: 100px">
+    <div class="admin">
+        <div class="panel admin-panel">
+            {% if user.nick_name %}
+                <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.nick_name }}
+                </strong><img src="{{ user.avatar }}" style="width: 100px;height: 100px">
+                </div>
+            {% else %}
+                <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.account }}
+                </strong>
+                    <img src="{{ user.avatar }}" style="width: 100px;height: 100px"></div>
+            {% endif %}
+            <div class="body-content">
+                <form method="post" class="form-x" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="label">
+                            <label>设置昵称：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" name="nick_name" value=""/>
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>设置头像：</label>
+                        </div>
+                        <div class="field">
+
+                            <input name="avatar" type="file" class="button bg-blue margin-left" id="image1"
+                                   value="+ 浏览上传"
+                                   style="float:left;">
+                            <div class="tipss">图片尺寸：500*200</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label></label>
+                        </div>
+                        <div class="field">
+                            <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        {% else %}
-            <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>欢迎你:{{ user.account }}</strong>
-                <img src="{{ user.avatar }}" style="width: 100px;height: 100px"></div>
-        {% endif %}
-        <div class="body-content">
-            <form method="post" class="form-x" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <div class="label">
-                        <label>设置昵称：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" name="nick_name" value=""/>
-                        <div class="tips"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>设置头像：</label>
-                    </div>
-                    <div class="field">
-                        {% if user.avatar %}
-                            <input type="text" id="url1" class="input tips" style="width:25%; float:left;"
-                                   value="" data-toggle="hover" data-place="right"
-                                   data-image="/media/{{ user.avatar }}"/>
-                        {% else %}
-                            <input type="text" id="url1" class="input tips" style="width:25%; float:left;"
-                                   value="" data-toggle="hover" data-place="right"
-                                   data-image=""/>
-                        {% endif %}
-                        <input name="avatar" type="file" class="button bg-blue margin-left" id="image1" value="+ 浏览上传"
-                               style="float:left;">
-                        <div class="tipss">图片尺寸：500*200</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label></label>
-                    </div>
-                    <div class="field">
-                        <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 {% endblock %}

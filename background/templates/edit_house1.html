@@ -1,0 +1,165 @@
+{#<!DOCTYPE html>#}
+{#{% load static %}#}
+{#<html>#}
+{#<head>#}
+{#<title>信息管理系统</title>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />#}
+{#<script type="text/javascript" src="{% static 'scripts/jquery/jquery-1.7.1.js' %}"></script>#}
+{#<link href="{% static 'style/authority/basic_layout.css' %}" rel="stylesheet" type="text/css">#}
+{#<link href="{% static 'style/authority/common_style.css' %}" rel="stylesheet" type="text/css">#}
+{#<script type="text/javascript" src="{% static 'scripts/authority/commonAll.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'scripts/jquery/jquery-1.4.4.min.js' %}"></script>#}
+{#<script src="{% static 'scripts/My97DatePicker/WdatePicker.js' %}" type="text/javascript" defer></script>#}
+{#<script type="text/javascript" src="{% static 'scripts/artDialog/artDialog.js?skin=default' %}"></script>#}
+{##}
+{#</head>#}
+{#<body>#}
+{#<div style="float: right"><img src="{% static 'kobe.png' %}  " alt=""></div>#}
+{#<form id="submitForm" name="submitForm" action="#" method="post" style="float: left;">#}
+{#{% csrf_token %}#}
+{#	<input type="hidden" name="fyID" value="14458625716623" id="fyID"/>#}
+{#	<div id="container">#}
+{#		<div id="nav_links">#}
+{#            当前位置：房屋编号:<span style="color: lightskyblue;">{{ house.house_id }}</span>&nbsp;>&nbsp;<span style="color: #1A5CC6;">房源编辑</span>#}
+{#            <input name="house_id" type="hidden" value="{{ house.house_id }}">#}
+{#			<div id="page_close">#}
+{#			</div>#}
+{#		</div>#}
+{#		<div class="ui_content">#}
+{#			<table  cellspacing="0" cellpadding="0" width="100%" align="left" border="0">#}
+{#				<tr>#}
+{#					<td class="ui_text_rt" width="80">房屋标题</td>#}
+{#					<td class="ui_text_lt">#}
+{#                        <textarea cols="40" rows="8" class="ui_select01" name="title" style="width: auto">{{ house.title }}</textarea>#}
+{#						<select name="fangyuanEntity.fyXqCode" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();">#}
+{#                            <option value="">--请选择--</option>#}
+{##}
+{#                            <option value="6" selected="selected">瑞景河畔</option>#}
+{##}
+{#                        </select>#}
+{#					</td>#}
+{#				</tr>#}
+{##}
+{##}
+{#				<tr>#}
+{#					<td class="ui_text_rt">区域</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<select name="fangyuanEntity.fyDhCode" id="fyDh" class="ui_select01">#}
+{#                            <option value="{{ house.area.area_id }}" selected="selected">{{ house.area.name }}</option>#}
+{#                            {% for area in areas %}#}
+{#                                {% if area.name != house.area.name %}#}
+{#                                <option value="{{ area.area_id }}">{{ area.name }}</option>#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+{##}
+{#                        </select>#}
+{#					</td>#}
+{#				</tr>#}
+{##}
+{##}
+{#				<tr>#}
+{#					<td class="ui_text_rt">范围</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<input type="text" id="fyCh" name="fangyuanEntity.fyCh" value="{{ house.address }}"  class="ui_input_txt02"/>#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">面积</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<input type="text" id="fyFh" name="fangyuanEntity.fyFh"  value="{{ house.acreage }}" class="ui_input_txt01">㎡#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">户型</td>#}
+{#					<td class="ui_text_lt">#}
+{#                        <select name="fangyuanEntity.fyZongMj" id="fyZongMj" class="ui_select01">#}
+{#                            <option value="{{ house.type.type_id }}" selected="selected">{{ house.type.type_name }}</option>#}
+{#                            {% for house_type in house_types %}#}
+{#                                {% if house_type.type_name != house.type.type_name %}#}
+{#                                <option value="{{ house_type.type_id }}">{{ house_type.type_name }}</option>#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+{##}
+{#                        </select>#}
+{##}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">价格</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<input type="text" id="fyJizuMj" name="fangyuanEntity.fyJizuMj" class="ui_input_txt02" value="{{ house.price }}">元#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">租赁方式</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<select name="fangyuanEntity.fyHxCode" id="submitForm_fangyuanEntity_fyHxCode" class="ui_select01">#}
+{#                            <option value="{{ house.housedetail_set.first.lease }}" selected="selected">{{ house.housedetail_set.first.lease }}</option>#}
+{#                            {% if house.housedetail_set.first.lease != '整租' %}#}
+{#                            <option value="整租" > 整租</option>#}
+{#                            {% endif %}#}
+{#                            {% if  house.housedetail_set.first.lease != '合租'%}#}
+{#                                <option value="合租" > 合租</option>#}
+{#                            {% endif %}#}
+{#                        </select>#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">联系人</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<input type="text" id="fylx" name="fangyuanlianxiren" value="{{ house.user.nick_name }}"  class="ui_input_txt02">#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{#					<td class="ui_text_rt">联系电话</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<input type="text" id="fyZldz" name="fangyuanEntity.fyZldz" value="{{ house.user.phone }}" class="ui_input_txt02"/>#}
+{#					</td>#}
+{#				</tr>#}
+{#				<tr>#}
+{##}
+{#				<tr>#}
+{#					<td class="ui_text_rt">状态</td>#}
+{#					<td class="ui_text_lt">#}
+{#						<select name="fangyuanEntity.fyStatus" id="submitForm_fangyuanEntity_fyStatus" class="ui_select01">#}
+{#                            <option value="{{ house.house_status }}">{{ house.house_status }}</option>#}
+{#                            {% if house.house_status != '已出租' %}#}
+{#                            <option value="已出租">已出租</option>#}
+{#                            {% endif %}#}
+{#                            {% if house.house_stauts != '闲置' %}#}
+{#                            <option value="闲置">闲置</option>#}
+{#                            {% endif %}#}
+{#                        </select>#}
+{#					</td>#}
+{#				</tr>#}
+{#                <br>#}
+{#                <br>#}
+{#				</tr>#}
+{#					<td>&nbsp;</td>#}
+{#					<td class="ui_text_lt">#}
+{#						&nbsp;<input id="submitbutton" type="submit" value="提交" class="ui_input_btn01" onclick="myclose()"/>#}
+{##}
+{##}
+{#						&nbsp;<input id="cancelbutton" type="button" value="取消" class="ui_input_btn01" onclick="cancel()">#}
+{#					</td>#}
+{#				</tr>#}
+{#			</table>#}
+{##}
+{#		</div>#}
+{#	</div>#}
+{#</form>#}
+{#<script>#}
+{#    下面的函数为提交表单的同时关闭子窗口fancybox #}
+{#   下列函数为了使页面提交的时候刷新页面, 取消的时候不刷新页面而设计, 顺序一步都不能错, 逻辑必须非常严谨 #}
+{#function myclose(){#}
+{#    parent.$.fancybox.close();#}
+{#    m = window.parent.document.location;#}
+    {#y = m.split('search');  --> 发现了一个问题, 在js这边切割以后不会执行跳转刷新操作了 #}
+{#    parent.window.location.href = m + 'house.html';#}
+{#}#}
+{#function cancel(){#}
+{#    parent.$.fancybox.close();#}
+{#}#}
+{#</script>#}
+{#</body>#}
+{#</html>#}

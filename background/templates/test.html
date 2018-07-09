@@ -8,21 +8,15 @@
         你好, Django,  我们开始吧!!!!!
         <h2 ><a href="www.baidu.com">安安安安</a></h2>
 
-        <script>
-            	    /**编辑   **/
-	    $("a.edit").fancybox({
-	    	'width' : 733,
-	        'height' : 530,
-	        'type' : 'iframe',
-	        'hideOnOverlayClick' : false,
-	        'showCloseButton' : false,
-	        'onClosed' : function() {
-	        	window.location.href = 'house_list.html';
-	        }
-	    });
 
-        </script>
-
-        <a href="" class="edit">哈哈哈</a>
+        <a href="#" class="edit" onclick="m()">哈哈哈</a>
 </body>
+<script>
+function m() {
+    m = 'http://127.0.0.1/app/search/2/0/0/0/2/house_list.html'
+    m = m.split('search')[1];
+    alert(m)
+}
+
+</script>
 </html>

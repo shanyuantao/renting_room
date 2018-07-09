@@ -1,6 +1,7 @@
 import os
 import re
 
+from PIL import Image
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.files.base import ContentFile
 
@@ -26,7 +27,8 @@ def Index(request):
     if request.method == 'GET':
         # 获取数据库中房屋信息
         house = House.objects.all()
-        return render(request, 'cwd/index.html', {'hous': house})
+        user = Get_user(request)
+        return render(request, 'cwd/index.html', {'hous': house, 'user': user})
 
 
 # 个人中心(同时能修改昵称和头像)
@@ -47,10 +49,10 @@ def My_self(request):
     if request.method == 'POST':
         nick_name = request.POST.get('nick_name')
         img_url = request.FILES.get('avatar')
-        img_url = img_url
-        # path = default_storage.save('../meida/' + img_url.name, ContentFile(img_url.read()))
-        # tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-        User.objects.filter(user_id=user_id.user_id).create(nick_name=nick_name, avatar=img_url)
+        img = Image.open(img_url)
+        img.save('media/%s' % img_url)
+        im_url = '/media/' + str(img_url)
+        User.objects.filter(user_id=user_id.user_id).update(nick_name=nick_name, avatar=im_url)
         return HttpResponseRedirect('/cwd/myself/')
 
 
@@ -88,7 +90,7 @@ def I_like(request):
     if request.method == 'GET':
         if user:
             house = User.objects.get(user_id=user.user_id).col_house.all()
-            return render(request, 'cwd/adv.html', {'house': house})
+            return render(request, 'cwd/adv.html', {'house': house, 'user': user})
         else:
             return HttpResponseRedirect('/cwd/index/')
 
