@@ -201,10 +201,13 @@
                     }else if(msg['code'] === 5){
                         var txt=  "请先登录";
                         window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+                    }else if(msg['code'] === 0){
+                        var txt=  "关注失败";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
                     }
                 },
                 error:function () {
-                    var txt=  "关注失败";
+                    var txt=  "请求失败";
                     window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
                 }
             })
@@ -225,6 +228,9 @@
                     }else if(msg['code'] === 5){
                         var txt=  "请先登录";
                         window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+                    }else if(msg['code'] === 0){
+                        var txt=  "取消失败";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
                     }
                 },
                 error:function () {
@@ -241,7 +247,7 @@
                 data:{'house_id':house_id,'method':'1'},
                 dataType:'json',
                 success:function (msg) {
-                    if (msg['code']){
+                    if (msg['code'] === 1){
                         $('#follow1').parent("div").hide();
                         $('#follow2').parent("div").show();
                     }else {
