@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/newDetail.css' %}">
     <link rel="stylesheet" href="{% static 'css/newzufang.css' %}">
+    <link rel="stylesheet" href="{% static 'css/xcConfirm.css' %}">
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/xcConfirm.js' %}"></script>
     <style>
         .selected1{
             opacity: 1 !important;
@@ -16,49 +18,9 @@
             opacity: 0.5;
         }
     </style>
-
-    <script src="{% static 'js/fe.js' %}"></script>
-    <script src="{% static 'js/common.js' %}"></script>
-
-{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/base/fe.js?_v=20180705162527790"></script>#}
-{#    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/common.js?_v=20180705162527790"></script>#}
-
-    <script>var path = 'https://s1.ljcdn.com/feroot/pc/asset?_v=20180705162527790'.split("?");require.config({baseUrl: path[0],paths: {'echarts' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/bar' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/line' : '../../dep/echarts-1.4.1/build/echarts','echarts/chart/pie' : '../../dep/echarts-1.4.1/build/echarts','echarts3' : '../../dep/echarts3/echarts3','common': 'common','jquery-ui': '../../dep/jquery-ui/jquery-ui.min','zeroclipboard': '../../dep/zeroclipboard-2.2.0/ZeroClipboard'},urlArgs:  path[1]});var feData = {"cityName": "北京","getFavHouseUrl":       "/api/gethousefav","setFavHouseUrl":       "/api/sethousefav","getLastSearch":        "/api/getlastsearch","getCommunityHistory":  "/api/getcommunityhistory","verifyHouse":          "/api/verifyHouse","getUser":              "/api/getUser","verifyCode":           "/verifycode/getVerifyCode","complaint":            "/api/complaint","getDecoration":        "/api/getDecoration","trendData" :           "/site/getpicinfo"}</script>
-    <script>
-
-  require(['detail/zufang'],function(init){
-    init({
-      isLoged:0,
-      area:'93平米',
-      totalPrice:'1700',
-      houseId:'106101331053',
-      resblockId:'1611061594169',
-      resblockName:'天邑宏御花园御苑',
-      isRemove:0,
-      defaultImg:'https://s1.ljcdn.com/feroot/pc/asset/img/new-version/default_block.png?_v=20180705162527790',
-      defaultBrokerIcon:'https://s1.ljcdn.com/feroot/pc/asset/img/jingjiren/noimg.jpg?_v=20180705162527790',
-      resblockPosition:'103.95459,30.774679',
-      cityId:'510100'
-    });
-  });
-  require(['common/backtopV3'], function (main) {
-    main({
-      ucid: '',
-      uuid: '53299cc7-4eb5-4d77-8ad2-cc408d7879b4',
-      loadingImg: 'https://s1.ljcdn.com/feroot/pc/asset/ershoufang/sellDetail/img/loading.gif?_v=20180705162527790',
-      qrImg: '//ajax.api.lianjia.com/qr/getDownloadQr'
-    });
-  });
-
-  </script>
-    <script src="https://s1.ljcdn.com/feroot/pc/asset/detail/zufang.js?_v=20180705162527790"></script>
-    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/backtopV3.js?_v=20180705162527790"></script>
-    <script src="https://s1.ljcdn.com/feroot/pc/asset/common/suggestion.js?_v=20180705162527790"></script>
-
-
-
     </head>
     <body>
+    {% csrf_token %}
     <div class="content-wrapper">
         <div class="title-wrapper">
             <div class="content">
@@ -66,7 +28,10 @@
                     <h1 class="main">{{ data.house.title }}</h1>
                     <div class="sub">这个经纪人很懒，没写核心卖点</div>
                 </div>
-                <div class="btnContainer "><button id="follow">关注房源</button></div>
+
+                <div id="house_id" style="display: none">{{ data.house.house_id }}</div>
+                <div class="btnContainer " style="display: none;"><button id="follow1">关注房源</button></div>
+                <div class="btnContainer " style="display: none;"><button id="follow2" style="background-color: red;">取消关注</button></div>
             </div>
         </div>
 
@@ -78,15 +43,13 @@
                 </div>
                 <div class="thumbnail">
                     <ul id="img_ul">
-                    <ul>
-                        {% for img_url in data.house_img%}
+                        {% for img_url in data.house_img %}
                             <li data-src=""  class="selected">
                                 <img src="{{ img_url.url }}" alt="">
                             </li>
                         {% endfor %}
                     </ul>
                     <div class="pre">&lt;</div>
-                    <div class="pre disable">&lt;</div>
                     <div class="next">&gt;</div>
                 </div>
             </div>
@@ -175,11 +138,14 @@
         </div>
     </div>
     <script>
+
+            var house_id = $("#house_id").text();
+            var csrf = $("input[name='csrfmiddlewaretoken']").val();
             var less = 0;
             var lis = $("#img_ul li"),
                 curIndex =  0;
                 length = lis.length;
-            console.log(lis.length);
+
             $("#img_ul li").eq(curIndex ).addClass("selected1");
             $("#img_ul").on("click", "li" ,function () {
 
@@ -218,7 +184,83 @@
                 $("#img_ul").css("left",less);
             }
 
-        })
+        });
+        $("#follow1").click(function () {
+            $.ajax({
+                url:'/detail/collect/',
+                headers:{'X-CSRFToken':csrf},
+                type:'post',
+                data:{'house_id':house_id, 'method':'2'},
+                dataType:'json',
+                success:function (msg) {
+                    if (msg['code'] === 1){
+                        $('#follow1').parent("div").hide();
+                        $('#follow2').parent("div").show();
+                        var txt=  "关注成功";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                    }else if(msg['code'] === 5){
+                        var txt=  "请先登录";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+                    }else if(msg['code'] === 0){
+                        var txt=  "关注失败";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+                    }
+                },
+                error:function () {
+                    var txt=  "请求失败";
+                    window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                }
+            })
+        });
+        $("#follow2").click(function () {
+            $.ajax({
+                url:'/detail/collect/',
+                headers:{'X-CSRFToken':csrf},
+                type:'post',
+                data:{'house_id':house_id,'method':'3'},
+                dataType:'json',
+                success:function (msg) {
+                    if (msg['code'] === 1){
+                        $('#follow2').parent("div").hide();
+                        $('#follow1').parent("div").show();
+                        var txt=  "取消成功";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                    }else if(msg['code'] === 5){
+                        var txt=  "请先登录";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+                    }else if(msg['code'] === 0){
+                        var txt=  "取消失败";
+                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+                    }
+                },
+                error:function () {
+                    var txt=  "取消失败";
+                    window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                }
+            });
+        });
+         $(function () {
+            $.ajax({
+                url:'/detail/collect/',
+                headers:{'X-CSRFToken':csrf},
+                type:'post',
+                data:{'house_id':house_id,'method':'1'},
+                dataType:'json',
+                success:function (msg) {
+                    if (msg['code'] === 1){
+                        $('#follow1').parent("div").hide();
+                        $('#follow2').parent("div").show();
+                    }else {
+                        $('#follow2').parent("div").hide();
+                        $('#follow1').parent("div").show();
+                    }
+                },
+                error:function () {
+                    var txt=  "刷新关注信息失败";
+					window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.confirm);
+                }
+            });
+        });
 
     </script>
 

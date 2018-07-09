@@ -1,5 +1,6 @@
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from app.models import House, Facility
+from app.models import House, Facility, Collect, User
 
 
 # Create your views here.
@@ -18,7 +19,42 @@ def detail(request, house_id):
             temp = [fac.facility_name for fac in house[0].facility_set.all()]
             data['fac'] = [(fac, bool(fac.facility_name in temp)) for fac in Facility.objects.all()]
 
-
-
-
         return render(request, 'detail.html', {'data': data})
+
+
+def collect(request):
+    if request.method == 'POST':
+        house_id = request.POST.get('house_id')
+        user_account = request.session.get('account')
+        method = request.POST.get('method')
+        user = User.objects.filter(account=user_account).first()
+        house = House.objects.filter(house_id=house_id).first()
+        if method == '1':
+            if Collect.objects.filter(user=user, house=house).exists():
+                return JsonResponse({'code': 1})
+            else:
+                return JsonResponse({'code': 0})
+        elif method == '2':
+            if user_account:
+                if Collect.objects.filter(user=user, house=house).exists():
+                    return JsonResponse({'code': 0})
+                else:
+                    try:
+                        Collect.objects.create(user=user, house=house)
+                        return JsonResponse({'code': 1})
+                    except Exception:
+                        return JsonResponse({'code':0})
+            else:
+                return JsonResponse({'code':5})
+        elif method == '3':
+            if user_account:
+                if Collect.objects.filter(user=user, house=house).exists():
+                    try:
+                        Collect.objects.filter(user=user, house=house).delete()
+                        return JsonResponse({'code': 1})
+                    except Exception:
+                        return JsonResponse({'code': 0})
+                else:
+                    return JsonResponse({'code': 0})
+            else:
+                return JsonResponse({'code':5})
