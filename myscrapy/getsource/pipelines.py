@@ -14,16 +14,18 @@ import pymysql
 class SaveToMongodbPipeline(object):
     """得到的数据插入mongodb数据库"""
 
-    def __init__(self, mongo_uri, mongo_db):
+    def __init__(self, mongo_uri, mongo_db, mongo_collection):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
+        self.mongo_collection = mongo_collection
         self.j = 0
 
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DB')
+            mongo_db=crawler.settings.get('MONGO_DB'),
+            mongo_collection=crawler.settings.get('MOMGO_COLLECTION_NAME')
         )
 
     def open_spider(self, spider):
@@ -36,7 +38,7 @@ class SaveToMongodbPipeline(object):
         print('mongo：断开mongo')
 
     def process_item(self, item, spider):
-        collection_name = 'lianjia'
+        collection_name = self.mongo_collection
         self.db[collection_name].insert(dict(item))
         self.j += 1
         print('mongo：完成第%s条数据插入' % self.j)
@@ -46,14 +48,32 @@ class SaveToMongodbPipeline(object):
 class SaveToMysql(object):
     """得到的数据插入mysql数据库"""
 
-    def __init__(self):
+    def __init__(self, mysql_db, mysql_host, mysql_user, mysql_port, mysql_password, mysql_charset):
+
+        self.mysql_charset = mysql_charset
+        self.mysql_db = mysql_db
+        self.mysql_host = mysql_host
+        self.mysql_port = mysql_port
+        self.mysql_password = mysql_password
+        self.mysql_user = mysql_user
         self.i = 0
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mysql_db=crawler.settings.get('MYSQL_DB'),
+            mysql_host=crawler.settings.get('MYSQL_HOST'),
+            mysql_user=crawler.settings.get('MYSQL_USER'),
+            mysql_port=crawler.settings.get('MYSQL_PORT'),
+            mysql_password=crawler.settings.get('MYSQL_PASSWORD'),
+            mysql_charset=crawler.settings.get('MYSQL_CHARSET'),
+        )
 
     def open_spider(self, spider):
         """连接mysql"""
-        self.dbcon = pymysql.connect(host='localhost', user='root',
-                                     passwd='1994', db='room',
-                                     port=3306, charset='utf8')
+        self.dbcon = pymysql.connect(host=self.mysql_host, user=self.mysql_user,
+                                     passwd=self.mysql_password, db=self.mysql_db,
+                                     port=self.mysql_port, charset=self.mysql_charset)
         self.cursor = self.dbcon.cursor()
         print('mysql：连接mysql')
         print(self.dbcon)
@@ -97,43 +117,45 @@ class SaveToMysql(object):
                f"'{dict(item)['pic_url'][0]}','{dict(item)['house_state']}' " \
                f"from dual {self.sql('house_id', 'house', 'title', dict(item)['title'])};"
         # print(sql4)
-        self.cursor.execute(sql4)
+        effect_row = self.cursor.execute(sql4)
         self.dbcon.commit()
         # print('完成sql4')
 
-        # 插入房屋详细信息
-        sql5 = f"insert into `house_detail`" \
-               f"(house_id, lease, pay_way, floor, house_head, community, surround_facility, transportation) " \
-               f"select (select house_id from house where title='{dict(item)['title']}'), " \
-               f"'{dict(item)['lease']}', '{dict(item)['pay_way']}', '{dict(item)['floor']}', '{dict(item)['house_head']}', " \
-               f"'{dict(item)['community']}', '{dict(item)['surround_facility']}', '{dict(item)['transportation']}';"
-        # print(sql5)
-        self.cursor.execute(sql5)
-        self.dbcon.commit()
-        # print('完成sql5')
+        if int(effect_row):
+            # 插入房屋详细信息
+            sql5 = f"insert into `house_detail`" \
+                   f"(house_id, lease, pay_way, floor, house_head, community, surround_facility, transportation) " \
+                   f"select (select house_id from house where title='{dict(item)['title']}'), " \
+                   f"'{dict(item)['lease']}', '{dict(item)['pay_way']}', '{dict(item)['floor']}', '{dict(item)['house_head']}', " \
+                   f"'{dict(item)['community']}', '{dict(item)['surround_facility']}', '{dict(item)['transportation']}';"
+            # print(sql5)
+            self.cursor.execute(sql5)
+            self.dbcon.commit()
+            # print('完成sql5')
 
-        # 插入房屋配套信息
-        if dict(item)['house_facility']:
-            for fac in dict(item)['house_facility']:
-                sql6 = f"insert into `house_facility`(facility_id, house_id) " \
-                       f"select (select facility_id from facility where facility_name='{fac}')," \
-                       f"(select house_id from house where title='{dict(item)['title']}') from dual;"
-                # print(sql6)
-                self.cursor.execute(sql6)
-                self.dbcon.commit()
-                # print('完成sql6')
+            # 插入房屋配套信息
+            if dict(item)['house_facility']:
+                for fac in dict(item)['house_facility']:
+                    sql6 = f"insert into `house_facility`(facility_id, house_id) " \
+                           f"select (select facility_id from facility where facility_name='{fac}')," \
+                           f"(select house_id from house where title='{dict(item)['title']}') from dual;"
+                    # print(sql6)
+                    self.cursor.execute(sql6)
+                    self.dbcon.commit()
+                    # print('完成sql6')
 
-        # 插入房屋图片url
-        if dict(item)['pic_url']:
-            for url in dict(item)['pic_url']:
-                sql7 = f"insert into `house_img`(house_id, url) " \
-                       f"select (select house_id from house where title='{dict(item)['title']}'), '{url}' from dual;"
-                # print(sql7)
-                self.cursor.execute(sql7)
-                self.dbcon.commit()
-                # print('完成sql7')
+            # 插入房屋图片url
+            if dict(item)['pic_url']:
+                for url in dict(item)['pic_url']:
+                    sql7 = f"insert into `house_img`(house_id, url) " \
+                           f"select (select house_id from house where title='{dict(item)['title']}'), '{url}' from dual;"
+                    # print(sql7)
+                    self.cursor.execute(sql7)
+                    self.dbcon.commit()
+                    # print('完成sql7')
 
-        self.i += 1
+            self.i += 1
+
         print('mysql：完成第%s条数据插入' % self.i)
 
     @staticmethod

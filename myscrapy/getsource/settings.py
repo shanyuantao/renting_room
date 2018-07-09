@@ -14,8 +14,17 @@ BOT_NAME = 'getsource'
 SPIDER_MODULES = ['getsource.spiders']
 NEWSPIDER_MODULE = 'getsource.spiders'
 
-MONGO_URI = 'mongodb://localhost:27017'
-MONGO_DB = 'oursdata'
+MONGO_URI = 'mongodb://101.132.39.189:27017'
+MONGO_DB = 'content'
+MOMGO_COLLECTION_NAME = 'house'
+
+
+MYSQL_HOST = '101.132.39.189'
+MYSQL_DB = 'room'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = '2905058'
+MYSQL_PORT = 3306
+MYSQL_CHARSET = 'utf8'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
