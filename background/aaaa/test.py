@@ -1,3 +1,3 @@
 
 s = '0平'
-print(s.split('平米'))
+print(s.startswith('0'))

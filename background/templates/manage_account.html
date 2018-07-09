@@ -107,9 +107,9 @@ function select_search(){
                                 <td>{{ user.phone }}</td>
 								<td>{{ user.nick_name }}</td>
                                 {% if user.forbidden_set.all %}
-                                <td>封号</td>
+                                <td><img src="{% static 'red.png' %}" alt="" width="30px" height="30px"></td>
                                 {% else %}
-                                <td>正常</td>
+                                <td><img src="{% static 'green.png' %}" alt="" width="30px" height="30px"></td>
                                 {% endif %}
 
 								<td>
@@ -118,7 +118,7 @@ function select_search(){
                                     {% if not user.forbidden_set.all %}
 									<a href="/app/forbidden_account/{{ user.user_id }}/{{ user.account }}/" onclick="delete_confirm1()">禁用</a>
                                     {% else %}
-                                    <a href="/app/save_account/{{ user.user_id }}/{{ user.account }}/ "style="color: red;" >解禁</a>
+                                    <a href="/app/save_account/{{ user.user_id }}/{{ user.account }}/" style="color: red;" >解禁</a>
                                     {% endif %}
 								</td>
 							</tr>

@@ -20,7 +20,7 @@ urlpatterns = [
     url('^set_avatar/', views.set_avatar),
     url('^manage_account/(\d+)/(.*)/', views.manage_account),
     url('^edit_account/(\d+)/', views.edit_account),
-    url('^forbidden_account/(\d+)/(.*)/', views.forbidden_account),
-    url('^save_account/(\d+)/(.*)/', views.save_account)
+    url('^forbidden_account/(\d+)/(\w+)/', views.forbidden_account),
+    url('^save_account/(\d+)/(\w+)/', views.save_account)
 
 ]
