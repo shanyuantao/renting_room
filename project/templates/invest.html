@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>invest</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+
+    <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/all.js"></script>
+{#    <script type="text/javascript" src="/static/js/my.js"></script>#}
+
+</head>
+<body>
+<!-- header start -->
+<div class="zxcf_top_wper">
+    <div class="zxcf_top px1000 clearfix">
+        <div class="zxcf_top_l fl">
+            <img src="/static/images/zxcf_phone.png" alt="">
+            400-027-0101(工作时间9:00-17:30)
+            <a href="#"><img src="/static/images/zxcf_weixin.png" alt=""></a>
+            <a href="#"><img src="/static/images/zxcf_sina.png" alt=""></a>
+            <a href="#"><img src="/static/images/zxcf_qq.png" alt=""></a>
+        </div>
+        <div class="zxcf_top_r fr">
+            <a href="login.html" class="curspan">立即登录</a>
+            <span>|</span>
+            <a href="register.html">免费注册</a>
+            <span>|</span>
+            <a href="problem.html">常见问题</a>
+        </div>
+    </div>
+</div>
+<!-- end top -->
+<div class="zxcf_nav_wper">
+    <div class="zxcf_nav clearfix px1000">
+        <!-- 中兴财富logo -->
+        <div class="zxcf_nav_l fl"><img src="/static/images/zxcf_logo.png" alt=""></div>
+
+        <!-- 我的账户这一块 -->
+        <div class="zxcf_nav_r fr">
+            <img src="/static/images/zxcf_perinfo.png" alt="">
+            <span>我的账户
+		 	<img src="/static/images/zxcf_icon01.png" alt=""></span>
+            <ul class="zxcf_perinfo" style="display:none;">
+                <li><a href="#">111</a></li>
+                <li><a href="#">111</a></li>
+                <li><a href="#">111</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="zxcf_menu_wper">
+    <div class="zxcf_menu px1000">
+        <a href="index.html" class="zm_cura">首页</a>
+        <a href="invest.html">我要投资</a>
+        <a href="borrow.html">我要借款</a>
+        <a href="#">实时财务</a>
+        <a href="noticelist.html">新手指引</a>
+        <a href="#" style="margin-right:0;">关于我们</a>
+    </div>
+</div>
+<!-- end  -->
+
+<div class="invest_con_wper">
+    <div class="invest_con px1000">
+
+        <div class="product_choose">
+            <!-- 产品选择 -->
+            <h2 class="product_tit clearfix">
+                <em class="proall fl">全部理财产品</em>
+                <div class="clearfix fl">
+                    <span class="product_curspan"><img src="/static/images/invest_pic01.png"> 新手体验标</span>
+                    <span><img src="/static/images/invest_pic02.png"> 项目列表</span>
+                    <span><img src="/static/images/invest_pic03.png"> 债权转让</span>
+                </div>
+            </h2>
+
+            <!-- 价格区间这一块 -->
+            <div class="product_box">
+                <div class="product_list">
+                    <div class="invest_prochoose">
+                        <p id="area_list"><span>区域：</span>
+
+                            <a href="{% url 'shan:myinvest' 0 price_id acreage_id house_type_id %}" class="inpro_cura">不限</a>
+                            {% for area in areas %}
+
+                                <a href="{% url 'shan:myinvest' area.area_id price_id acreage_id house_type_id %}">{{ area.name }}</a>
+
+                            {% endfor %}
+
+                        </p>
+                        <p id="price_list"><span>租金：</span>
+                            <a href="{% url 'shan:myinvest' area_id 0 acreage_id house_type_id %}" class="inpro_cura">不限</a>
+                            {% for house_price in house_prices %}
+
+                                <a href="{% url 'shan:myinvest' area_id house_price.id acreage_id house_type_id %}">{{ house_price.house_price }}</a>
+
+                            {% endfor %}
+
+                        </p>
+                        <p id="acreage_list"><span>面积：</span>
+
+                            <a href="{% url 'shan:myinvest' area_id price_id 0 house_type_id %}" class="inpro_cura">不限</a>
+                            {% for house_acreage in house_acreages %}
+
+                            <a href="{% url 'shan:myinvest' area_id price_id house_acreage.id house_type_id %}">{{ house_acreage.acreage_name }}</a>
+
+                            {% endfor %}
+
+
+                        </p>
+                        <p id="type_list"><span>房型：</span>
+
+                            <a href="{% url 'shan:myinvest' area_id price_id acreage_id 0 %}" class="inpro_cura">不限</a>
+                            {% for house_type in house_types %}
+
+                            <a href="{% url 'shan:myinvest' area_id price_id acreage_id house_type.type_id %}">{{ house_type.type_name }}</a>
+
+                            {% endfor %}
+
+
+                        </p>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="product_list" style="display:none;">
+                    2
+                </div>
+                <!--  -->
+                <div class="product_list" style="display:none;">
+                    3
+                </div>
+                <!--  -->
+
+            </div>
+        </div>
+        <!-- end block -->
+
+        <h3 class="sort_tit mt30"><em>排序</em>
+            <span>综合排序</span>
+            <span>收益率<img src="/static/images/invest_jiantou.png" alt=""></span>
+            <span>发布时间<img src="/static/images/invest_jiantou.png" alt=""></span>
+            <span>项目期限<img src="/static/images/invest_jiantou.png" alt=""></span>
+        </h3>
+
+        <div class="product_list mt20">
+            <!-- 房屋展示 -->
+            {% for house in page_data %}
+            <div class="prolist_one prolist_one_bl01 mt20">
+                <h2 class="prolist_one_tit"><span>热租</span>{{ house.title }}
+                </h2>
+
+
+                <ul class="prolist_one_ul clearfix">
+                     <li class="prolist_press">
+
+                    <div>
+                    <meta name="referrer" content="no-referrer">
+                    <img src="{{ house.index_img_url }}" alt="图片" style="height: 100%; width: 100%; margin-bottom:50% ">
+                    </div>
+
+                    </li>
+                    <li>
+                        面积：<strong>{{ house.house_acreage }}</strong>平米<br>
+                        付款方式：押三付一
+                    </li>
+                    <li>
+                        价格：<i>{{ house.house_price }}</i>元<br>
+                        地址：{{ house.address }}
+                    </li>
+
+                    <li class="prolist_btn">
+                        <a href="/static/11112/detail.html" class="pro_btn">房屋详情</a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+            <!-- end one -->
+
+            <!-- 页码展示 -->
+            <p class="pagelink">
+
+                {% if page_data.has_previous %}
+                    <a href="?current_page={{ page_data.previous_page_number }}" class="pglink_cura">上一页</a>
+                {% else %}
+                    <a href="#">上一页</a>
+                {% endif %}
+
+{#                {{ page_data.paginator.num_pages }}#}
+
+                {% if page_data.has_next %}
+                    <a href="?current_page={{ page_data.next_page_number }}" class="pglink_cura">下一页</a>
+                {% else %}
+                    <a href="#">下一页</a>
+                {% endif %}
+{#                <a href="#">2</a>#}
+{#                <a href="#">3</a>#}
+{#                <a href="#">下一页</a>#}
+            </p>
+            <!-- pagelink end -->
+
+        </div>
+    </div>
+</div>
+<!-- 底部内容 -->
+<div class="zscf_aboutus_wper">
+    <div class="zscf_aboutus px1000 clearfix">
+        <div class="zscf_aboutus_l fl">
+            <ul class="zscf_aboutus_lul clearfix">
+                <li class="pt10"><a href="#"><img src="/static/images/app.png" alt=""></a>
+                </li>
+                <li>
+                    <p class="pb20">服务热线</p>
+                    <strong>400-027-0101</strong>
+                </li>
+                <li>
+                    <p class="pb10 linkpic">
+                        <a href="#"><img src="/static/images/ft_sina.png" alt=""></a>
+                        <a href="#"><img src="/static/images/ft_weixin.png" alt=""></a>
+                        <a href="#"><img src="/static/images/ft_erji.png" alt=""></a>
+                    </p>
+                    <p><a href="#">kefu@zhongxincaifu.com</a></p>
+                </li>
+            </ul>
+        </div>
+        <!-- end left -->
+        <div class="zscf_aboutus_r fl clearfix">
+            <a href="#" class="fl ft_ewm"><img src="/static/images/ft_erweima.png" alt=""></a>
+            <ul class="fl clearfix">
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#">我要融资</a></li>
+                <li><a href="problem.html">帮助中心</a></li>
+                <li><a href="#">友情链接</a></li>
+                <li><a href="#">招贤纳士</a></li>
+                <li><a href="#">收益计算器</a></li>
+            </ul>
+        </div>
+        <!-- end right -->
+
+    </div>
+</div>
+
+<div class="zscf_bottom_wper">
+    <div class="zscf_bottom px1000 clearfix">
+        <p class="fl">© 2014 zhongxincaifu &nbsp; &nbsp;&nbsp; 中兴财富金融信息服务股份有限公司 &nbsp;&nbsp;&nbsp; 来源:<a
+                href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+        <p class="fr">
+            <a href="#"><img src="/static/images/360.png" alt=""></a>
+            <a href="#"><img src="/static/images/kexin.png" alt=""></a>
+            <a href="#"><img src="/static/images/norton.png" alt=""></a>
+        </p>
+    </div>
+</div>
+<!-- footer end -->
+</body>
+</html>

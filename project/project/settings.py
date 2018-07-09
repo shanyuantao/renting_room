@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'shanyuantao'
 ]
 
 MIDDLEWARE = [
@@ -79,9 +79,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'room',
         'USER': 'root',
-        'PASSWORD': '2905058',
+        'PASSWORD': '123123',
         'PORT': '3306',
-        'HOST': '101.132.39.189'
+        'HOST': '127.0.0.1'
     }
 }
 
@@ -118,17 +118,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 # 配置静态文件
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = STATICFILES_DIRS[0]  # 同上
 
 # 配置上传文件路径
 MEDIA_URL = '/media/'
@@ -146,7 +141,7 @@ if not os.path.isdir(LOG_PATH):
 
 LOGGING = {
     'version': 1,
-    'disable_exisiting_loggers':False,
+    'disable_exisiting_loggers': False,
     'formatters': {
         'default': {
             'format': '%(levelname)s %(funcName)s %(asctime)s %(message)s'
