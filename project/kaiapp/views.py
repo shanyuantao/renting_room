@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from app.models import User, House
+from app.models import User, House, Forbidden
 
 
 # 用户注册
@@ -53,7 +53,8 @@ def login(request):
         # 判断账号是否存在
         if User.objects.filter(account=account).exists():
             users = User.objects.filter(account=account)  # 获取的是列表类型
-
+            if Forbidden.objects.filter(user_id=users[0].user_id).exists():
+                return HttpResponse('此用户可能涉及违规, 已被封禁')
             # 检查密码
             if check_password(password, users[0].password):
 
