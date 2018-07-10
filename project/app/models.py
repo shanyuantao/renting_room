@@ -141,3 +141,11 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+
+class Forbidden(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'forbidden'
