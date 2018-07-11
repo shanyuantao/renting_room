@@ -14,9 +14,12 @@ BOT_NAME = 'getsource'
 SPIDER_MODULES = ['getsource.spiders']
 NEWSPIDER_MODULE = 'getsource.spiders'
 
-MONGO_URI = 'mongodb://101.132.39.189:27017'
-MONGO_DB = 'content'
-MOMGO_COLLECTION_NAME = 'house'
+# MONGO_URI = 'mongodb://101.132.39.189:27017'
+MONGO_URI = 'mongodb://127.0.0.1:27017'
+# MONGO_DB = 'content'
+MONGO_DB = 'oursdata'
+# MOMGO_COLLECTION_NAME = 'house'
+MOMGO_COLLECTION_NAME = 'lianjia'
 
 
 MYSQL_HOST = '101.132.39.189'
@@ -39,8 +42,8 @@ CONCURRENT_REQUESTS = 3
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
-RANDOMIZE_DOWNLOAD_DELAY = True
+# DOWNLOAD_DELAY = 0.5
+# RANDOMIZE_DOWNLOAD_DELAY = True
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -66,9 +69,9 @@ COOKIES_ENABLED = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'getsource.middlewares.GetsourceDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'getsource.middlewares.LianJiaDownloaderMiddleWare': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -80,7 +83,7 @@ COOKIES_ENABLED = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'getsource.pipelines.SaveToMongodbPipeline': 300,
-   'getsource.pipelines.SaveToMysql': 301,
+   # 'getsource.pipelines.SaveToMysql': 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
