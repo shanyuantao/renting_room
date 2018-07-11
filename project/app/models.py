@@ -23,7 +23,6 @@ class Collect(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
     house = models.ForeignKey('House', models.DO_NOTHING)
 
-
     class Meta:
         managed = False
         db_table = 'collect'

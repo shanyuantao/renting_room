@@ -1,0 +1,8 @@
+scrapy
+pymongo
+selenium
+pywin32
+
+django==1.11
+pymysql
+pillow
