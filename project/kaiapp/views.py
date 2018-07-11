@@ -60,7 +60,7 @@ def login(request):
 
                 # 将登录的账户名传递给session对象
                 request.session['account'] = account
-                return HttpResponseRedirect('/kaiapp/index/')
+                return HttpResponseRedirect('/cwd/index/')
             else:
                 return HttpResponse('登录密码错误')
         else:

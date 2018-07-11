@@ -18,7 +18,7 @@ def Get_user(a):
 def Index(request):
     if request.method == 'GET':
         # 获取数据库中房屋信息
-        house = House.objects.all()
+        house = House.objects.order_by('-house_id')[:5]
         user = Get_user(request)
         return render(request, 'cwd/index.html', {'hous': house, 'user': user})
 
@@ -35,7 +35,7 @@ def My_self(request):
             return render(request, 'cwd/page.html', {'user': user_id})
         else:
             # 返回主界面
-            return HttpResponseRedirect('/cwd/index/')
+            return HttpResponseRedirect('/kaiapp/login/')
             # 返回没有用户的json格式
             # return JsonResponse(jsonresponse.NO_USER)
     if request.method == 'POST':
