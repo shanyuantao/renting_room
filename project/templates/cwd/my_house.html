@@ -47,7 +47,7 @@
                     {% for h in house %}
 
 
-                        <tr>
+                        <tr id="awe{{ h.house_id }}">
                             <td>{{ h.house_id }}</td>
                             <td><img src="{{ h.index_img_url }}" alt="" width="120" height="50"/></td>
                             <td>{{ h.title }}</td>
@@ -71,14 +71,24 @@
         <script type="text/javascript">
             function del(id) {
                 var r = confirm("您确定要删除吗?")
-                if (r == true) {
-
-                    $.post('/cwd/myhouse/',{h:id, csrfmiddlewaretoken: '{{ csrf_token }}'})
-                }
-                else {
-                    alert("You pressed Cancel!");
-                }
-            }
+                if (r){
+                    $.ajax({
+                        type: 'GET',
+                        url: '/cwd/del/',
+                        contentType: 'application/json; charset=utf-8',
+                        dataTYpe: 'json',
+                        data:{'myhouse':id},
+                        success: function (data) {
+                            if(data.code=='200')
+                            {alert(data.msg);
+                            {#window.location.reload()表示刷新页面#}
+                            $('#awe'+id).remove()}{#表示移除元素#}
+                        },
+                        error: function (data) {
+                            alert('删除失败');
+                            window.location.reload()
+                        }
+                    })}}
         </script>
     </div>
 {% endblock %}

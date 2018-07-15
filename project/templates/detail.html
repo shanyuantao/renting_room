@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="referrer" content="no-referrer">
-	<meta http-equiv="Content-language" content="zh-CN">
-    <title>{{ data.house.title }}</title>
-    {% load static %}
+{% extends 'base_mine.html' %}
+{% load static %}
+{% block title %}
+    {{ data.house.title }}
+{% endblock %}
+
+    {% block csses %}
+
+
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/newDetail.css' %}">
     <link rel="stylesheet" href="{% static 'css/newzufang.css' %}">
     <link rel="stylesheet" href="{% static 'css/xcConfirm.css' %}">
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/xcConfirm.js' %}"></script>
+
     <style>
         .selected1{
             opacity: 1 !important;
@@ -17,9 +21,12 @@
         .selected{
             opacity: 0.5;
         }
+
     </style>
-    </head>
-    <body>
+{% endblock %}
+    {% block content %}
+
+
     {% csrf_token %}
     <div class="content-wrapper">
         <div class="title-wrapper">
@@ -265,4 +272,4 @@
     </script>
 
 
-</body></html>
+{% endblock %}

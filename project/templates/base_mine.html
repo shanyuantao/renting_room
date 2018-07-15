@@ -3,7 +3,7 @@
 {% block CSS %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="referrer" content="no-referrer">
-    <title>首页</title>
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
     <meta charset="UTF-8">
@@ -20,11 +20,10 @@
                 <a href="#"><img src="{% static 'images/zxcf_qq.png' %}" alt=""></a>
             </div>
             <div class="zxcf_top_r fr">
-                <a href="login.html" class="curspan">立即登录</a>
+                <a href="/kaiapp/register/" class="curspan">立即登录</a>
                 <span>|</span>
-                <a href="register.html">免费注册</a>
+                <a href="/kaiapp/login/">免费注册</a>
                 <span>|</span>
-                <a href="problem.html">常见问题</a>
             </div>
         </div>
     </div>
@@ -41,8 +40,8 @@
     </div>
     <div class="zxcf_menu_wper">
         <div class="zxcf_menu px1000">
-            <a href="#" class="zm_cura">首页</a>
-            <a href="#">租房</a>
+            <a href="/cwd/index/" class="zm_cura">首页</a>
+            <a href="/cwd/find/1/">租房</a>
             <a href="/cwd/myself/">个人中心</a>
             <a href="#" style="margin-right:0;">关于我们</a>
         </div>
@@ -102,7 +101,7 @@
         <div class="zscf_aboutus px1000 clearfix">
             <div class="zscf_aboutus_l fl">
                 <ul class="zscf_aboutus_lul clearfix">
-                    <li class="pt10"><a href="#"><img src="images/app.png" alt=""></a>
+                    <li class="pt10"><a href="#"><img src="{% static 'images/app.png' %}" alt=""></a>
                     </li>
                     <li>
                         <p class="pb20">服务热线</p>
@@ -110,9 +109,9 @@
                     </li>
                     <li>
                         <p class="pb10 linkpic">
-                            <a href="#"><img src="images/ft_sina.png" alt=""></a>
-                            <a href="#"><img src="images/ft_weixin.png" alt=""></a>
-                            <a href="#"><img src="images/ft_erji.png" alt=""></a>
+                            <a href="#"><img src="{% static 'images/ft_sina.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/ft_weixin.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'images/ft_erji.png' %}" alt=""></a>
                         </p>
                         <p><a href="#">kefu@zhongxincaifu.com</a></p>
                     </li>
@@ -120,7 +119,7 @@
             </div>
             <!-- end left -->
             <div class="zscf_aboutus_r fl clearfix">
-                <a href="#" class="fl ft_ewm"><img src="images/ft_erweima.png" alt=""></a>
+                <a href="#" class="fl ft_ewm"><img src="{% static 'images/ft_erweima.png' %}" alt=""></a>
                 <ul class="fl clearfix">
                     <li><a href="#">联系我们</a></li>
                     <li><a href="#">我要租房</a></li>
