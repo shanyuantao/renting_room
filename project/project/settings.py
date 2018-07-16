@@ -81,13 +81,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'room',
         'USER': 'root',
-        'PASSWORD': '2905058',
+        # 'PASSWORD': '2905058',
         # 'PASSWORD': '147258',
-        # 'PASSWORD': '1994',
+        'PASSWORD': '1994',
         'PORT': '3306',
         # 'HOST': '127.0.0.1'
-        'HOST': '101.132.39.189'
-        # 'HOST': 'localhost'
+        # 'HOST': '101.132.39.189'
+        'HOST': 'localhost'
     }
 }
 

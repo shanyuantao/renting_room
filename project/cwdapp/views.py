@@ -189,14 +189,14 @@ def Search(request, a, p, s, n):
         else:
             house = house
 
-        if int(p) != 0:
+        if p != '0':
             price_min = int(p.split('-')[0])
             price_max = int(p.split('-')[1])
             house = house.filter(price__gte=price_min, price__lt=price_max)
         else:
             house = house
 
-        if int(s) != 0:
+        if s != '0':
             types = HouseType.objects.filter(type_name__startswith=s)  # 字段__startswith = value：该字段以value开头的
             type_ids = [i.type_id for i in types]
             house = house.filter(type_id__in=type_ids)
