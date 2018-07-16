@@ -25,7 +25,7 @@ SECRET_KEY = 'gj-i26l&ka(np^6j@!0jqa0sr-s)eb@h7ux0to##!xgs53r+j!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # DEBUG等于false等于自己去处理遇到的错误, 且不会处理静态文件
 
-ALLOWED_HOSTS = ['*'] # 允许所有主机
+ALLOWED_HOSTS = [] # 允许所有主机
 
 
 # Application definition

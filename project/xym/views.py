@@ -72,6 +72,18 @@ def my_new_house(request):
             # if not login return to login page
             return render(request, 'xym/login.html')
 
+        area = Area.objects.all()
+        facility_name = Facility.objects.all()
+        facility_id = Facility.objects.all
+        type_names = HouseType.objects.all()
+        data = {
+            'area': area,
+            'facility_name': facility_name,
+            'type_names': type_names,
+            'facility_id': facility_id
+        }
+        return render(request, 'xym/newhouse.html', data)
+
     if request.method == 'POST':
 
         title = request.POST.get('title')
