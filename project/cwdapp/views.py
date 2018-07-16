@@ -180,25 +180,25 @@ def Find(request, the_page):
 # 查询页面
 def Search(request, a, p, s, n):
     if request.method == 'GET':
-        all_house = House.objects.all()
-        if a:
-            house = all_house.filter(area_id=a)
+        house = House.objects.all()
+        if int(a) != 0:
+            house = house.filter(area_id=a)
         else:
-            house = all_house
+            house = house
 
-        if p:
+        if int(p) != 0:
             price_min = int(p.split('-')[0])
             price_max = int(p.split('-')[1])
             house = house.filter(price__gte=price_min, price__lt=price_max)
         else:
-            house = all_house
+            house = house
 
-        if s:
+        if int(s) != 0:
             types = HouseType.objects.filter(type_name__startswith=s)  # 字段__startswith = value：该字段以value开头的
             type_ids = [i.type_id for i in types]
             house = house.filter(type_id__in=type_ids)
         else:
-            house = all_house
+            house = house
         # 获取地区
         positions = Area.objects.all()
         # 获取房屋类型钱4个字段（如：两室一厅）

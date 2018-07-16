@@ -23,7 +23,7 @@ from app.models import Facility, Area, HouseType, House, User, HouseDetail, Hous
 @csrf_exempt
 def my_new_house(request):
     if request.method == 'GET':
-        print('1***************88888')
+
 
         area = Area.objects.all()
         facility_name = Facility.objects.all()
