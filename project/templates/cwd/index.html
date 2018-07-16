@@ -1,6 +1,8 @@
 {% extends 'base_mine.html' %}
 {% load static %}
-
+{% block title %}
+首页
+{% endblock %}
 
 
 {% block content %}
@@ -35,40 +37,39 @@
         <div class="zscf_con_wper pb30">
         <div class="zscf_con px1000">
         <div class="zscf_block3 mt30 ">
-            <h2 class="block3_tit clearfix"><span class="block3_curspan">展示房屋</span><em><img
+            <h2 class="block3_tit clearfix"><span class="block3_curspan">最新发布房源</span><em><img
                     src="images/shu.png"
                     alt=""></em></h2>
             <div class="block3_pro_box clear">
                 <div class="block3_prolist">
                     {% for i in hous %}
-                        {% if 5 < i.house_id and i.house_id < 10 %}
-                            <div class="block3_proone clearfix clear">
-                                    <span class="fl proone_left">     <div class="tjxm_jindu ">
 
-                                                </div></span>
-                                <!--  -->
-                                <div class="fl proone_center">
-                                    <div class="clearfix">
-                                        <span class="fl proone_center_span1">{{ i.title }}</span>
-                                        <div class="block2_biao_r fr">
+                        <div class="block3_proone clearfix clear">
+                                <span class="fl proone_left">     <div class="tjxm_jindu ">
 
-                                        </div>
+                                            </div></span>
+                            <!--  -->
+                            <div class="fl proone_center">
+                                <div class="clearfix">
+                                    <span class="fl proone_center_span1">{{ i.title }}</span>
+                                    <div class="block2_biao_r fr">
+
                                     </div>
-
-                                    <ul class="clearfix proone_center_ul clear pt10">
-                                        <li>租金:<span>{{ i.price }}元</span></li>
-                                        <li>房间平米:<span>{{ i.acreage }}m²</span></li>
-                                        <li>区域：<span>{{ i.address }}</span></li>
-                                    </ul>
                                 </div>
-                                <!--  -->
-                                <a href="{{ i.house_id }}" class="block3_btn fl">查看详情</a>
-                                <img src="{{ i.index_img_url }}"
-                                     data-img="{{ i.index_img_url }} " alt="{{ i.title }}"
-                                     style="width: 140px ;height: 100px; ">
 
+                                <ul class="clearfix proone_center_ul clear pt10">
+                                    <li>租金:<span>{{ i.price }}元</span></li>
+                                    <li>房间平米:<span>{{ i.acreage }}m²</span></li>
+                                    <li>区域：<span>{{ i.address }}</span></li>
+                                </ul>
                             </div>
-                        {% endif %}
+                            <!--  -->
+                            <a href="/detail/detail/{{ i.house_id }}/" class="block3_btn fl">查看详情</a>
+                            <img src="{{ i.index_img_url }}"
+                                 data-img="{{ i.index_img_url }} " alt="{{ i.title }}"
+                                 style="width: 140px ;height: 100px; ">
+
+                        </div>
                     {% endfor %}
                 </div>
                 <!-- end 项目列表 -->

@@ -3,8 +3,7 @@ from django.contrib.auth.hashers import check_password, make_password
 
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from app.models import House, User, Collect, HouseDetail, HouseFacility, HouseImg
-
+from app.models import House, User, Collect, HouseDetail, HouseFacility, HouseImg, Area, HouseType
 
 
 # 写入取session方法
@@ -18,7 +17,7 @@ def Get_user(a):
 def Index(request):
     if request.method == 'GET':
         # 获取数据库中房屋信息
-        house = House.objects.all()
+        house = House.objects.order_by('-house_id')[:5]
         user = Get_user(request)
         return render(request, 'cwd/index.html', {'hous': house, 'user': user})
 
@@ -35,7 +34,7 @@ def My_self(request):
             return render(request, 'cwd/page.html', {'user': user_id})
         else:
             # 返回主界面
-            return HttpResponseRedirect('/cwd/index/')
+            return HttpResponseRedirect('/kaiapp/login/')
             # 返回没有用户的json格式
             # return JsonResponse(jsonresponse.NO_USER)
     if request.method == 'POST':
@@ -85,10 +84,24 @@ def I_like(request):
             return render(request, 'cwd/adv.html', {'house': house, 'user': user})
         else:
             return HttpResponseRedirect('/cwd/index/')
-    if request.method == 'POST':
-        house_id = request.POST.get('id')
-        House.objects.filter(house_id=house_id).delete()
-        return HttpResponseRedirect('/cwd/like/')
+
+
+# 删除页面
+def Del(request):
+    if request.method == 'GET':
+        house_id = request.GET.get('adv')
+        # 删除关注页面
+        if house_id:
+            Collect.objects.filter(house_id=house_id).delete()
+            return JsonResponse({'code': 200, 'msg': '已删除关注房源'})
+        houses = request.GET.get('myhouse')
+        # 删除发布房屋
+        if houses:
+            HouseDetail.objects.filter(house_id=houses).delete()
+            HouseFacility.objects.filter(house_id=houses).delete()
+            HouseImg.objects.filter(house_id=houses).delete()
+            House.objects.filter(house_id=houses).delete()
+            return JsonResponse({'code': 200, 'msg': '已删除发布房源'})
 
 
 # 实名认证
@@ -126,38 +139,93 @@ def My_house(request):
         if request.method == 'GET':
             house = House.objects.filter(user_id=user.user_id)
             return render(request, 'cwd/my_house.html', {'house': house, 'user': user})
-        if request.method == 'POST':
-            houses = request.POST.get('h')
-            HouseDetail.objects.filter(house_id=houses).delete()
-            HouseFacility.objects.filter(house_id=houses).delete()
-            HouseImg.objects.filter(house_id=houses).delete()
-            House.objects.filter(house_id=houses).delete()
-            return HttpResponseRedirect('/cwd/myself/')
 
 
-# 用户登录
-def login(request):
-    # get请求获取登录页面
+# 默认查询页面
+def Find(request, the_page):
     if request.method == 'GET':
-        return render(request, 'cwd/login.html')
+        # 获取地区
+        positions = Area.objects.all()
+        # 获取房屋类型钱4个字段（如：两室一厅）
+        house_types = HouseType.objects.all()
+        t = []
+        for i in house_types:
+            t.append(i.type_name[:4])
+        # 添加t标签并且去重排序
+        new_type = list(set(t))
+        new_type.sort()
+        # 获取页面页数并且改为整数类型
+        the_page = int(the_page)
+        # 设定每页显示数量
+        page_size = 10
+        # 减一的话可以根据页面传递的当前页面参数来传递每页不同的房屋详情（下面的计算用得着↓）
+        pre_page = the_page - 1
+        # 获取一共有多少条数据
+        all_record = House.objects.all().count()
+        # 获取总页数，如果能能整除10的话否则整除11
+        total_page = (House.objects.all().count() // page_size) if (House.objects.all().count() % 10 == 0) else (
+                House.objects.all().count() // page_size + 1)
+        # 获取每页的十条页面信息，根据传递的翻页参数来定（这个地方就用到了↑）比如第一页[0:10]第二页[2-1*10:2*10]
+        houses = House.objects.all()[pre_page * page_size: the_page * page_size]
 
-    # post请求获取信息
-    if request.method == 'POST':
-        account = request.POST.get('name')
-        password = request.POST.get('password')
+        return render(request, 'cwd/find.html',
+                      {'positions': positions,  # 地区详情
+                       'new_type': new_type,  # 类型详情
+                       'houses': houses,  # 房屋详情十条
+                       'the_page': the_page,  # 当前页面
+                       'total_page': total_page,  # 总页面
+                       'all_record': all_record})  # 一共多少条
 
-        # 判断账号是否存在
-        if User.objects.filter(account=account).exists():
-            users = User.objects.filter(account=account)  # 获取的是列表类型
 
-            # 检查密码
-            # if check_password(password, users[0].password):
-            if password == users[0].password:
-                # 将登录的账户名传递给session对象
-
-                request.session['account'] = account
-                return HttpResponseRedirect('/cwd/index/')
-            else:
-                return HttpResponse('登录密码错误')
+# 查询页面
+def Search(request, a, p, s, n):
+    if request.method == 'GET':
+        all_house = House.objects.all()
+        if a:
+            house = all_house.filter(area_id=a)
         else:
-            return HttpResponse('登录账号错误')
+            house = all_house
+
+        if p:
+            price_min = int(p.split('-')[0])
+            price_max = int(p.split('-')[1])
+            house = house.filter(price__gte=price_min, price__lt=price_max)
+        else:
+            house = all_house
+
+        if s:
+            types = HouseType.objects.filter(type_name__startswith=s)  # 字段__startswith = value：该字段以value开头的
+            type_ids = [i.type_id for i in types]
+            house = house.filter(type_id__in=type_ids)
+        else:
+            house = all_house
+        # 获取地区
+        positions = Area.objects.all()
+        # 获取房屋类型钱4个字段（如：两室一厅）
+        house_types = HouseType.objects.all()
+        t = []
+        for i in house_types:
+            t.append(i.type_name[:4])
+        # 添加t标签并且去重排序
+        new_type = list(set(t))
+        new_type.sort()
+        # 获取页面页数并且改为整数类型
+        the_page = int(n)
+        # 设定每页显示数量
+        page_size = 10
+        # 减一的话可以根据页面传递的当前页面参数来传递每页不同的房屋详情（下面的计算用得着↓）
+        pre_page = the_page - 1
+        # 获取一共有多少条数据
+        all_record = house.all().count()
+        # 获取总页数，如果能能整除10的话否则整除11
+        total_page = (house.all().count() // page_size) if (house.all().count() % 10 == 0) else (
+                house.all().count() // page_size + 1)
+        # 获取每页的十条页面信息，根据传递的翻页参数来定（这个地方就用到了↑）比如第一页[0:10]第二页[2-1*10:2*10]
+        houses = house.all()[pre_page * page_size: the_page * page_size]
+        return render(request, 'cwd/search.html',
+                      {'positions': positions,  # 地区详情
+                       'new_type': new_type,  # 类型详情
+                       'houses': houses,  # 房屋详情十条
+                       'the_page': the_page,  # 当前页面
+                       'total_page': total_page,  # 总页面
+                       'all_record': all_record})  # 一共多少条

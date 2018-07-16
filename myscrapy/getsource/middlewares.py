@@ -6,6 +6,9 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.http import HtmlResponse
+from selenium import webdriver
+
 
 
 class GetsourceSpiderMiddleware(object):
@@ -101,3 +104,33 @@ class GetsourceDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class LianJiaDownloaderMiddleWare(object):
+
+    def __init__(self, timeout=None):
+        self.timeout = timeout
+        self.browser = webdriver.Chrome()
+        self.browser.set_window_size(1000,600)
+        self.browser.set_page_load_timeout(self.timeout)
+
+    def __del__(self):
+        self.browser.close()
+
+    def process_request(self, request, spider):
+        try:
+            self.browser.get(request.url)
+            return HtmlResponse(url=request.url, body=self.browser.page_source,
+                                request=request, encoding='utf-8', status=200)
+        except TimeoutError:
+            return HtmlResponse(url=request.url, status=500, request=request)
+
+    def process_response(self, request, response, spider):
+        return response
+
+    def process_exception(self, request, exception, spider):
+        pass
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(timeout=120)

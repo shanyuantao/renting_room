@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<title>信息管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="{% static 'scripts/jquery/jquery-1.7.1.js' %}"></script>
+<link href="{% static 'style/authority/basic_layout.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'style/authority/common_style.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'scripts/authority/commonAll.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/jquery/jquery-1.4.4.min.js' %}"></script>
+<script src="{% static 'scripts/My97DatePicker/WdatePicker.js' %}" type="text/javascript" defer></script>
+<script type="text/javascript" src="{% static 'scripts/artDialog/artDialog.js?skin=default' %}"></script>
+
+</head>
+<body>
+<div style="float: right"><img src="{% static 'yao.png' %}  " alt=""></div>
+<form id="submitForm" name="submitForm" action="#" method="post" style="float: left;">
+{% csrf_token %}
+	<input type="hidden" name="fyID" value="14458625716623" id="fyID"/>
+	<div id="container">
+		<div id="nav_links">
+            当前位置：用户编号:<span style="color: lightskyblue;">{{ user.user_id }}</span>&nbsp;>&nbsp;<span style="color: #1A5CC6;">用户编辑</span>
+            <input name="user_id" type="hidden" value="{{ user.user_id }}">
+			<div id="page_close">
+			</div>
+		</div>
+		<div class="ui_content">
+			<table  cellspacing="0" cellpadding="0" width="100%" align="left" border="0">
+				<tr>
+					<td class="ui_text_rt" width="80">角色身份</td>
+					<td class="ui_text_lt">
+                        <select name="role_id" id="fyDh" class="ui_select01">
+                                {% if user.role.admin %}
+                                <option value="admin" selected="selected">管理员</option>
+                                {% else %}
+                                <option value="admin" selected="" >管理员</option>
+                                {% endif %}
+                                {% if user.role.vip %}
+                                <option value="vip" selected="selected">普通用户</option>
+                                {% else %}
+                                <option value="vip" selected="">普通用户</option>
+                                {% endif %}
+
+                        </select>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td class="ui_text_rt">账户名</td>
+					<td class="ui_text_lt">
+						<select name="fangyuanEntity.fyDhCode" id="fyDh" class="ui_select01">
+                            <option value="" disabled="disabled" selected="selected">{{ user.account }}</option>
+
+                        </select>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td class="ui_text_rt">密码</td>
+					<td class="ui_text_lt">
+						<input type="text" id="fyCh" name="fangyuanEntity.fyCh" value="{{ user.password }}"  class="ui_input_txt02"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">电话号码</td>
+					<td class="ui_text_lt">
+						<input type="text" id="fyFh" name="fangyuanEntity.fyFh"  value="{{ user.phone }}" class="ui_input_txt02">
+					</td>
+				</tr>
+				<tr>
+					<td class="ui_text_rt">姓名</td>
+					<td class="ui_text_lt">
+                        <select name="fangyuanEntity.fyZongMj" id="fyZongMj" class="ui_select01">
+                            <option value="" disabled="disabled" selected="selected">{{ user.nick_name }}</option>
+
+                        </select>
+
+					</td>
+				</tr>
+                <br>
+                <br>
+				</tr>
+					<td></td>
+					<td class="ui_text_lt">
+						&nbsp;<input id="submitbutton" type="submit" value="提交" class="ui_input_btn01" onclick="myclose1()" style="float: left;"/><input id="cancelbutton" type="button" value="取消" class="ui_input_btn01" onclick="cancel1()">
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</form>
+<script>
+{#    下面的函数为提交表单的同时关闭子窗口fancybox #}
+function myclose1(){
+    parent.to_showMessage();
+    parent.$.fancybox.close();
+    {#y = m.split('search');  --> 发现了一个问题, 在js这边切割以后不会执行跳转刷新操作了 #}
+
+
+    /* 因为子页面已经关闭, 所以不要在这个函数里面花太多的功夫去写函数, 可能会关闭了函数没执行完, 最好写一个方便去调用父类的函数即可 */
+
+}
+function cancel1(){
+    parent.$.fancybox.close();
+}
+</script>
+</body>
+</html>

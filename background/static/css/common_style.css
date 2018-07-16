@@ -175,14 +175,15 @@ a:hover {
 }
 
 .ui_input_btn01 {
-	width: 80px;
-	height: 30px;
-	line-height: 30px;
+	background-color: #3385FF;
+	width: 105px;
+	height: 40px;
+	line-height: 33px;
 	text-align: center;
 	border-style: none;
 	cursor: pointer;
 	font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
-	background: url('../../images/login/btn.jpg') 0px -1px no-repeat;
+	/*background: url('../../images/login/btn.jpg') 0px -1px no-repeat;*/
 }
 
 .ui_input_btn01:hover {

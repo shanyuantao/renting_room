@@ -5,3 +5,4 @@ USER_PASSWORD_ERROR = {'code':'1002', 'msg':'密码错误'}
 USER_REGISTER_PARAMS_ERROR = {'code':'1003','msg':'账号/密码不能为空'}
 INPUT_IS_INCONSISTENT = {'code':'1004', 'msg':'两次输入不一致，请重新输入'}
 SYSTEM_INSTUSION = {'code':'1005', 'msg':'系统遭到入侵'}
+ACCOUNT_IS_BLOCKED = {'code':'1006', 'msg':'账号已被封禁'}

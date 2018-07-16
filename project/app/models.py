@@ -20,13 +20,13 @@ class Area(models.Model):
 
 
 class Collect(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    house = models.ForeignKey('House', models.DO_NOTHING, blank=True, null=True)
-
+    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    house = models.ForeignKey('House', models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'collect'
+        unique_together = (('user', 'house'),)
 
 
 class Count(models.Model):
@@ -71,12 +71,13 @@ class Facility(models.Model):
 
 
 class HouseFacility(models.Model):
-    facility = models.ForeignKey(Facility, models.DO_NOTHING, blank=True, null=True)
-    house = models.ForeignKey(House, models.DO_NOTHING, blank=True, null=True)
+    facility = models.ForeignKey(Facility, models.DO_NOTHING, primary_key=True)
+    house = models.ForeignKey(House, models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'house_facility'
+        unique_together = (('facility', 'house'),)
 
 
 class HouseDetail(models.Model):
@@ -141,3 +142,11 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+
+class Forbidden(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'forbidden'

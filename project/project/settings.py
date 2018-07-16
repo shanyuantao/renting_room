@@ -82,8 +82,13 @@ DATABASES = {
         'NAME': 'room',
         'USER': 'root',
         'PASSWORD': '2905058',
+<<<<<<< HEAD
         # 'PASSWORD': '147258',
+=======
+        # 'PASSWORD': '1994',
+>>>>>>> master
         'PORT': '3306',
+        # 'HOST': '127.0.0.1'
         'HOST': '101.132.39.189'
         # 'HOST': 'localhost'
     }
