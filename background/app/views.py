@@ -15,9 +15,9 @@ from app.models import User, Area, HouseType, House, HouseDetail, HouseImg, Coun
 from app.status_code import USER_REGISTER_PARAMS_ERROR, USERNAME_NOT_EXIST, SUCCESS, USER_PASSWORD_ERROR, \
     INPUT_IS_INCONSISTENT, SYSTEM_INSTUSION, ACCOUNT_IS_BLOCKED
 
-client = pymysql.connect(host='101.132.39.189',
+client = pymysql.connect(host='127.0.0.1',
                        user='root',
-                       passwd='2905058',
+                       passwd='1994',
                        db='room',
                        port=3306,
                        charset='utf8'
