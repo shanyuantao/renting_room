@@ -1,8 +1,9 @@
 $(document).ready(function(){
+
     $.get('/app/refresh/', function (data){
         if(data.code == '200'){
             str1= '<img height="38" width="38" src="'+ data.avatar + '" alt="读取头像失败QAQ">';
-            str2 = '<span color="pink">' + data.nick_name + '</span>';
+            str2 = '<span style="color: pink">' + data.nick_name + '</span>';
             str3 = str1 + str2;
 
             $('#for_avatar').html(str3)

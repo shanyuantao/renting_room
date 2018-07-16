@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="referrer" content="no-referrer">
-    <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<title>{% block title %}
 
-    <meta charset="UTF-8">
+{% endblock %}</title>
+
     {% block CSS %}
 
     {% endblock %}
+{% block csses %}
+
+{% endblock %}
 </head>
 <body>
 {% block header %}

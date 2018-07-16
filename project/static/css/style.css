@@ -244,7 +244,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 * html body {
   /* IE6 fixed box hack */
-  _background-image: url(about:blank);
   _background-attachment: fixed;
 }
 body {
@@ -973,11 +972,7 @@ body {
   background: #5d5b5f;
 }
 .zscf_banner_wper {
-<<<<<<< HEAD
-  background: url("../images/banner01.png") no-repeat scroll center 0 #ffffff;
-=======
-  background: url("../images/123.jpg") no-repeat scroll center 0 #ffffff;
->>>>>>> cwd
+  background: url("../banner01.png") no-repeat scroll center 0 #ffffff;
   height: 363px;
 }
 .zscf_banner {
@@ -1245,28 +1240,21 @@ body {
 .block3_proone {
   border-bottom: 1px solid #e2e2e2;
   padding: 35px 20px;
-<<<<<<< HEAD
   _padding: 10px 20px;
 }
 .block3_proone .proone_left {
   width: 46px;
   height: 46px;
-=======
-
 }
 .block3_proone .proone_left {
   width: 60px;
   height: 60px;
->>>>>>> cwd
   padding: 10px 30px 0 0;
   display: inline-block;
 }
 .proone_center {
-<<<<<<< HEAD
   width: 670px;
-=======
   width: 500px;
->>>>>>> cwd
 }
 .proone_center_span1 {
   color: #000;
@@ -1486,9 +1474,6 @@ body {
 .zscf_bottom_wper a {
   margin-left: 10px;
 }
-<<<<<<< HEAD
-
-=======
 .login_con_wper {
   background: url(../images/lg_bg01.png) no-repeat scroll center center #f3f3f3;
   height: 698px;
@@ -1496,7 +1481,6 @@ body {
 .login_con {
   padding-top: 50px;
 }
->>>>>>> cwd
 .lg_section {
   border: 1px solid #eeeeee;
   background-color: #fff;
@@ -1567,9 +1551,7 @@ body {
 .lg_btn:hover {
   background-color: #3bc4ee;
 }
-<<<<<<< HEAD
 
-=======
 .reg_con_wper {
   height: 910px;
   background: url(../images/reg_bg01.png) no-repeat scroll center center;
@@ -1577,7 +1559,6 @@ body {
 .reg_con {
   padding-top: 50px;
 }
->>>>>>> cwd
 .reg_box {
   background: #fff;
   border: 1px solid #eee;
@@ -2042,10 +2023,7 @@ body {
 .hc_zjwt_one .hc_zjwt_onebg01 {
   background-color: #f3f3f3;
 }
-.hc_answer {
-  padding: 20px 50px;
-  background: url(../images/hc_answer.png) no-repeat 10px 20px #fbfbfb;
-}
+
 /*文章.css*/
 .helpconright h3 {
   height: 90px;
@@ -2084,4 +2062,19 @@ body {
 .helpconimg {
   padding: 10px 0px 10px 30px;
 }
+#my_img{
+  display: block;
+    width: 2rem;
+    height: 2rem;
+    float: left;
+    margin: 0 0.3rem 0;
+    font-size: 1.5rem;
+    color: black;
+    background: white;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 1.8rem;
+}
+
 /*end article*/
+

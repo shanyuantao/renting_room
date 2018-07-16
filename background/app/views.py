@@ -3,15 +3,17 @@ import random
 
 import time
 from urllib import parse
+from urllib.parse import urlencode
 
 import pymysql
+import pytz
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from app.models import User, Area, HouseType, House, HouseDetail, HouseImg, Count
+from app.models import User, Area, HouseType, House, HouseDetail, HouseImg, Count, HouseFacility, Role, Forbidden
 from app.status_code import USER_REGISTER_PARAMS_ERROR, USERNAME_NOT_EXIST, SUCCESS, USER_PASSWORD_ERROR, \
-    INPUT_IS_INCONSISTENT, SYSTEM_INSTUSION
+    INPUT_IS_INCONSISTENT, SYSTEM_INSTUSION, ACCOUNT_IS_BLOCKED
 
 client = pymysql.connect(host='101.132.39.189',
                        user='root',
@@ -54,12 +56,18 @@ def adminlogin(request):
             return render(request, 'login_error.html', data)   # 账号/密码不能为空
         else:
             if User.objects.filter(account=username).exists() and User.objects.get(account=username).role_id == 2:
+                user = User.objects.get(account=username)
                 password = request.POST.get('password')
-                if len(password) == 0:
-                    data['error'] = USER_REGISTER_PARAMS_ERROR['msg']
+                if Forbidden.objects.filter(user_id=user.user_id):
+                    data['error'] = ACCOUNT_IS_BLOCKED
                     return render(request, 'login_error.html', data)
+                elif len(password) == 0:
+                    data['error'] = USER_REGISTER_PARAMS_ERROR['msg']
+                    return render(request, 'login_error.html', data)   # 账号/密码不能为空
+                elif user.password != password:
+                    data['error'] = USER_PASSWORD_ERROR['msg']
+                    return render(request, 'login_error.html', data)   # 密码错误
                 else:
-                    user = User.objects.get(account=username)
                     if user.password == password:
                         s = 'qwertyuiopasdfghjklzxcvbnm'
                         ticket = ''
@@ -72,9 +80,10 @@ def adminlogin(request):
                         response.set_cookie('ticket', ticket,max_age=3600)
                         #这个函数里面，max_age就是cookie的超时时间，是以秒为单位的。也可以用expires设置绝对时间做为有效期，格式："Wdy, DD-Mon-YY HH:MM:SS GMT"，expires也可以是datetime.datetime的对象
                         user.ticket = ticket
-                        user.out_time = (datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+                        user.out_time = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
                         user.save()
                         # 问题1: 如果使用ajax请求登录的情况下, 如何给客户端返回设置的cookie呢?
+                        # A: 通过ajax调用这个函数, 返回一个HttpResonse(data)  通过ajax去接收这个参数即可, 并且同时也返回了这个cookies给客户端
                         return response
             else:
                 data['error'] = USERNAME_NOT_EXIST['msg']
@@ -85,10 +94,48 @@ def hello(request):
     """
     后台页面
     :param request:
-    :return: 返回后台页面
+    :return: 返回区域报表页面
     """
     if request.method == 'GET':
-        return render(request, 'backend.html')
+        area_names = []
+        counts = []
+        areas = Area.objects.all()
+        for area in areas:
+            area_names.append(area.name)
+            count = House.objects.filter(area_id=area.area_id).count()
+            counts.append(count)
+        return render(request, 'backend.html',
+                      {'area_names':area_names,
+                       'counts':counts
+                       })
+
+
+def hello1(request):
+    """
+    后台页面
+    :param request:
+    :return: 返回价格报表页面
+    """
+    price_ranges = ['0-500','500-1000','1000-2000','2000-3000','3000-5000','5000-8000', '8000-?']
+    price_range_count = []
+    for price_range in price_ranges:
+        price_min = price_range.split('-')[0]
+        price_max = price_range.split('-')[1]
+        if price_max != '?':
+            price_range_count.append(House.objects.filter(price__gte=price_min,price__lt=price_max).count())
+        else:
+            price_range_count.append(House.objects.filter(price__gte=price_min).count())
+    price_range_list = []
+
+    for i in range(len(price_ranges)):
+        for j in range(len(price_range_count)):
+            if i == j:
+                temp_dict = {}
+                temp_dict['name'] = price_ranges[i] + '元'
+                temp_dict['value'] = price_range_count[j]
+                price_range_list.append(temp_dict)
+
+    return render(request, 'backend1.html',{'price_range_list':price_range_list})
 
 
 def refresh(request):
@@ -106,7 +153,7 @@ def refresh(request):
             data['account'] = user.account
             data['phone'] = user.phone
             data['nick_name'] = user.nick_name
-            data['avatar'] = user.avatar
+            data['avatar'] = user.avatar.url
 
         else:
             data = SYSTEM_INSTUSION
@@ -190,11 +237,13 @@ def del_house(request, house_id, the_page):
     :return: 删除后返回当前页面并刷新
     """
     if request.method == 'GET':
+        # 问题2: 在django项目中使用pymysql效率,性能可行吗?
         # 1. 删除房屋详情
         HouseDetail.objects.filter(house_id=house_id).delete()
-        # 2. 删除房屋对应设备关联数据
-        sql = 'delete from house_facility where house_id=%d' % (int(house_id))
-        cursor.execute(sql)
+        # 2. 删除房屋对应设备关联数据(下面为两种方法删除)
+        # sql = 'delete from house_facility where house_id=%d' % (int(house_id))
+        # cursor.execute(sql)
+        HouseFacility.objects.filter(house_id=house_id).delete()
         # 3. 删除房屋图片
         HouseImg.objects.filter(house_id=house_id).delete()
         # 4. 删除用户收藏对应关联数据
@@ -358,3 +407,75 @@ def search(request, area_id, price_range, acreage_range, house_type, the_page):
                        'acreage_range':acreage_range,
                        'house_type':house_type})
 
+
+def set_avatar(request):
+    if request.method == 'GET':
+        ticket = request.COOKIES.get('ticket')
+        user = User.objects.get(ticket=ticket)
+        return render(request, 'set_avatar.html', {'user':user})
+
+    if request.method == 'POST':
+        ticket = request.COOKIES.get('ticket')
+        avatar = request.FILES.get('set_avatar')
+        # 获取到了上传的文件以后赋给对应的用户, 直接使用save命令以后, 会执行上传文件到指定目录, 并且将文件地址放到数据库中.
+        user = User.objects.get(ticket=ticket)
+        user.avatar = avatar
+        user.save()
+        return render(request, 'set_avatar.html', {'user':user})
+
+
+def manage_account(request, the_page, account):
+    if request.method == 'GET':
+        the_page = int(the_page)
+        page_size = 15
+        all_users = User.objects.all()
+        if account == '0':
+            all_record = all_users.count()
+            total_page = all_record // page_size if all_record % page_size == 0 else all_record // page_size + 1
+            users = all_users[(the_page - 1) * page_size: the_page * page_size]
+        else:
+            all_record = 1
+            total_page = 1
+            users = all_users.filter(account=account)
+
+
+        return render(request, 'manage_account.html',
+                      {'users':users,
+                       'all_record':all_record,
+                       'total_page':total_page,
+                       'the_page':the_page})
+
+
+def edit_account(request, user_id):
+    if request.method == 'GET':
+        user = User.objects.get(user_id=user_id)
+
+        return render(request, 'edit_account.html',
+                      {'user':user})
+
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        user = User.objects.get(user_id=user_id)
+        role_id = request.POST.get('role_id')
+        password = request.POST.get('fangyuanEntity.fyCh')
+        phone = request.POST.get('fangyuanEntity.fyFh')
+        if role_id == 'vip':
+            user.role_id = 1
+        if role_id == 'admin':
+            user.role_id = 2
+        user.password = password
+        user.phone = phone
+        user.save()
+        # 以上为管理员修改数据
+
+
+def forbidden_account(request, user_id, account):
+    if request.method == 'GET':
+        Forbidden.objects.create(user_id=user_id)
+        return HttpResponseRedirect('/app/manage_account/1/'+ account + '/')
+
+
+def save_account(request, user_id, account):
+    if request.method == 'GET':
+        Forbidden.objects.filter(user_id=user_id).delete()
+        return HttpResponseRedirect('/app/manage_account/1/'+ account + '/')

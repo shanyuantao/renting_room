@@ -72,25 +72,42 @@
 <div class="zscf_con_wper pb30">
 	<div class="zscf_con px1000">
 	      <div class="zscf_block1 mt30 ">
-	      	  <h2 class="zscf_block1_tit clearfix"><span class="fl"><strong>新房发布</strong></span><a href="#" class="fr">查看更多>></a></h2>
+	      	  <h2 class="zscf_block1_tit clearfix"><span class="fl"><strong>查询房屋条件</strong></span>
 	      	  <div class="clearfix clear">
-		      	  <ul class="zscf_block1_text clearfix fl">
 {#                      {% for data in latest_data %}#}
-                          <li>
-                               <span class="block1_libg01">房源</span>
-                               <br>
-                               <em><strong>{{ latest_data.title }}</strong></em>
-                          </li>
-                          <li>
-                               <span class="block1_libg02">地址</span>
-                               <br>
-                               <em><strong>{{ latest_data.address }}</strong></em>
-                          </li>
-                          <li>
-                               <span class="block1_libg03">价格</span>
-                               <br>
-                               <em><strong>{{ latest_data.price }}</strong>￥</em>
-                          </li>
+                  <ul style="font-size: 20px" >区域:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a href="" style="margin: 0px 20px;font-size: 20px">1</a>
+                      <a href="" style="margin: 0px 20px">2</a>
+                      <a href="" style="margin: 0px 20px">3</a>
+                  </ul>
+                  <ul>价格
+                      <li>4</li>
+                      <li>5</li>
+                  </ul>
+                  <ul>房型
+                      <li>6</li>
+                      <li>7</li>
+                  </ul>
+{#                          <ul class="zscf_block1_text clearfix fl">#}
+{#                               <span class="block1_libg01">房源</span>#}
+{#                               <br>#}
+{#                              <em><strong>{{ latest_data.title }}</strong></em>#}
+{#                              <li>#}
+{#                               <em><strong>{{ latest_data.title }}</strong></em>#}
+{#                              </li>#}
+{#                          </ul>#}
+{#                          <ul >#}
+{#                               <span class="block1_libg02">地址</span>#}
+{#                               <br>#}
+{#                              <li>#}
+{#                               <em><strong>{{ latest_data.address }}</strong></em>#}
+{#                              </li>#}
+{#                          </ul>#}
+{#                          <li>#}
+{#                               <span class="block1_libg03">价格</span>#}
+{#                               <br>#}
+{#                               <em><strong>{{ latest_data.price }}</strong>￥</em>#}
+{#                          </li>#}
 {#                      {% endfor %}#}
 		      	  </ul>
 		      	 <!-- end l -->

@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gj-i26l&ka(np^6j@!0jqa0sr-s)eb@h7ux0to##!xgs53r+j!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # DEBUG等于false等于自己去处理遇到的错误, 且不会处理静态文件
+DEBUG = True  # DEBUG等于false等于自己去处理遇到的错误, 且不会处理静态文件
 
 ALLOWED_HOSTS = ['*'] # 允许所有主机
 
@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = STATICFILES_DIRS[0]  # 同上
+# STATIC_ROOT = STATICFILES_DIRS[0]  # 同上
 
 # 配置上传文件路径
 MEDIA_URL = '/media/'

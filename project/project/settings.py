@@ -82,7 +82,9 @@ DATABASES = {
         'NAME': 'room',
         'USER': 'root',
         'PASSWORD': '2905058',
+        # 'PASSWORD': '1994',
         'PORT': '3306',
+        # 'HOST': '127.0.0.1'
         'HOST': '101.132.39.189'
     }
 }

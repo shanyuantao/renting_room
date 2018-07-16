@@ -20,12 +20,14 @@ class Area(models.Model):
 
 
 class Collect(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    house = models.ForeignKey('House', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    house = models.ForeignKey('House', models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'collect'
+        unique_together = (('user', 'house'),)
+
 
 
 class Count(models.Model):
@@ -48,7 +50,7 @@ class House(models.Model):
     price = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=512, blank=True, null=True)
     acreage = models.IntegerField(blank=True, null=True)
-    index_img_url = models.CharField(max_length=1024, blank=True, null=True)
+    index_img_url = models.ImageField(max_length=1024, blank=True, null=True, upload_to='new_house')
     house_status = models.CharField(max_length=10, blank=True,
                                    null=True)
     col_user = models.ManyToManyField('User', through='Collect', related_name='col_house')
@@ -70,12 +72,13 @@ class Facility(models.Model):
 
 
 class HouseFacility(models.Model):
-    facility = models.ForeignKey(Facility, models.DO_NOTHING, blank=True, null=True)
-    house = models.ForeignKey(House, models.DO_NOTHING, blank=True, null=True)
+    facility = models.ForeignKey(Facility, models.DO_NOTHING, primary_key=True)
+    house = models.ForeignKey(House, models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'house_facility'
+        unique_together = (('facility', 'house'),)
 
 
 class HouseDetail(models.Model):
@@ -130,7 +133,7 @@ class User(models.Model):
     password = models.CharField(max_length=128, blank=True, null=True)
     phone = models.CharField(max_length=128,blank=True, null=True)
     nick_name = models.CharField(max_length=128, blank=True, null=True)
-    avatar = models.CharField(max_length=1024, blank=True, null=True)
+    avatar = models.ImageField(max_length=1024, blank=True, null=True, upload_to='icon')
     id_name = models.CharField(max_length=64, blank=True, null=True)
     id_card = models.CharField(max_length=64, blank=True, null=True)
     ticket = models.CharField(max_length=255, blank=True, null=True)
@@ -140,3 +143,11 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+
+class Forbidden(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'forbidden'

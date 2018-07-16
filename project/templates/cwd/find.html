@@ -1,0 +1,140 @@
+{% extends 'base_mine.html' %}
+{% load static %}
+{% block title %}
+    查询页
+{% endblock %}
+
+{% block content %}
+    <div class="zscf_con_wper pb30">
+        <div class="zscf_con px1000">
+            <div class="zscf_block1 mt30 ">
+                <h2 class="zscf_block1_tit clearfix"><span class="fl"><strong>查询房屋条件</strong></span>
+                    <div class="clearfix clear" style="font-size: 20px">
+                        {#                      {% for data in latest_data %}#}
+                        <ul>区域:
+                        <a href="/cwd/find/" style="margin: 0px 20px;font-size: 15px">不限</a>
+                            {% for p in positions %}
+                                <a href="/cwd/search/{{ p.area_id }}/0/0/1/" style="margin: 0px 20px;font-size: 15px">{{ p.name }}</a>
+                            {% endfor %}
+                        </ul>
+                        <ul>价格:
+                            <a href="/cwd/find/" style="margin: 0px 20px;font-size: 15px">不限</a>
+                            <a href="/cwd/search/0/0-500/0/1/" style="margin: 0px 20px;font-size: 15px">500元以下</a>
+                            <a href="/cwd/search/0/500-1000/0/1/" style="margin: 0px 20px;font-size: 15px">500-1000元</a>
+                            <a href="/cwd/search/0/1000-2000/0/1/" style="margin: 0px 20px;font-size: 15px">1000-2000元</a>
+                            <a href="/cwd/search/0/2000-3000/0/1/" style="margin: 0px 20px;font-size: 15px">2000-3000元</a>
+                            <a href="/cwd/search/0/3000-1000000/0/1/" style="margin: 0px 20px;font-size: 15px">3000以上元</a>
+                        </ul>
+                        <ul>房型:
+                        <a href="/cwd/find/" style="margin: 0px 20px;font-size: 15px">不限</a>
+                            {% for n in new_type %}
+                                <a href="/cwd/search/0/0/{{ n }}/1/" style="margin: 0px 10px;font-size: 15px">{{ n }}</a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 这里结束 -->
+
+    <div class="zscf_con_wper pb30">
+        <div class="zscf_con px1000">
+            <div class="zscf_block3 mt30 ">
+                <h2 class="block3_tit clearfix"><span class="block3_curspan">最新发布房源</span><em><img
+                </em></h2>
+                <div class="block3_pro_box clear">
+                    <div class="block3_prolist">
+                        {% for i in houses %}
+
+                            <div class="block3_proone clearfix clear">
+                                <span class="fl proone_left">     <div class="tjxm_jindu ">
+
+                                            </div></span>
+                                <!--  -->
+                                <div class="fl proone_center">
+                                    <div class="clearfix">
+                                        <span class="fl proone_center_span1">{{ i.title }}</span>
+                                        <div class="block2_biao_r fr">
+
+                                        </div>
+                                    </div>
+
+                                    <ul class="clearfix proone_center_ul clear pt10">
+                                        <li>租金:<span>{{ i.price }}元</span></li>
+                                        <li>房间平米:<span>{{ i.acreage }}m²</span></li>
+                                        <li>区域：<span>{{ i.address }}</span></li>
+                                    </ul>
+                                </div>
+                                <!--  -->
+                                <a href="/detail/detail/{{ i.house_id }}/" class="block3_btn fl">查看详情</a>
+                                <img src="{{ i.index_img_url }}"
+                                     data-img="{{ i.index_img_url }} " alt="{{ i.title }}"
+                                     style="width: 140px ;height: 100px; ">
+
+                            </div>
+                        {% endfor %}
+                        <div class="ui_flt" style="height: 30px; line-height: 30px;">
+                            共有
+                            <span class="ui_txt_bold04">{{ all_record }}</span>
+                            条记录，当前第
+                            <span class="ui_txt_bold04">{{ the_page }}
+						/
+                                {{ total_page }}</span>
+                            页
+                        </div>
+                        <div class="ui_frt">
+                            <!--    如果是第一页，则只显示下一页、尾页 -->
+
+                            <a href="/cwd/find/1/"><input type="button" value="首页" class="ui_input_btn01"></a>
+
+                            {% if the_page > 1 %}
+                                <a href="/cwd/find/{{ the_page|add:-1 }}/"><input id='foo1' type="button" value="上一页"
+                                                                                  class="ui_input_btn01"/></a>
+                            {% else %}
+                                <a href="/cwd/find/{{ the_page }}/"><input id='foo1' type="button" value="上一页"
+                                                                           class="ui_input_btn01"/></a>
+                            {% endif %}
+
+                            {% if the_page < total_page %}
+                                <a href="/cwd/find/{{ the_page|add:1 }}/"><input type="button" value="下一页"
+                                                                                 class="ui_input_btn01"></a>
+                            {% else %}
+                                <a href="/cwd/find/{{ the_page }}/"><input type="button" value="下一页"
+                                                                           class="ui_input_btn01"></a>
+                            {% endif %}
+
+
+                            <a href="/cwd/find/{{ total_page }}/"><input type="button" value="尾页"
+                                                                         class="ui_input_btn01"></a>
+
+
+                            <!--     如果是最后一页，则只显示首页、上一页 -->
+                            <form style="float: right">
+
+
+                                转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01">页
+                                <input type="button" id="gotosearch" class="ui_input_btn01" value="跳转"
+                                       onclick="search()">
+
+                                <input type="text" style="display: none">
+                                <input id="foo2" type="hidden" value="{{ total_page }}">
+                            </form>
+
+
+                        </div>
+                    </div>
+                    <!-- end 项目列表 -->
+                    <div class="block3_prolist" style="display:none;">
+                        2
+                    </div>
+                </div>
+            </div>
+            <!-- end block3 -->
+            <div class="zscf_block4 mt30">
+                <img src="{% static 'images/timg.jpg' %}">
+            </div>
+            <!-- end block4 -->
+{% endblock %}
